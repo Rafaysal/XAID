@@ -1,0 +1,217 @@
+body{
+    margin: 0;
+    width: 1152px;
+    height: 1101px;
+text-shadow: 0px 1px 1px rgba(0,0,0,0.1),
+             0px 2px 5px rgba(0,0,0,0.1),
+             0px 3px 6px rgba(0,0,0,0.1);
+             
+}
+section{
+  
+    position: relative;
+   
+}
+
+.circle{
+    position: absolute;
+    border-radius: 100%;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+    filter: blur(2px);
+}
+
+#twelve{
+    
+    width: 259px;
+    height: 259px;
+    left: 127px;
+    top: 141px;
+    background: rgba(198, 165, 233, 0.815);
+}
+
+#thirteen{
+    width: 210px;
+    height: 210px;
+    left: 815px;
+    top: 723px;
+    background: rgba(247, 190, 155, 0.85);
+}
+
+#fourteen{
+    width: 131px;
+    height: 131px;
+    left: 642px;
+    top: 690px;
+    background: rgba(241, 169, 189, 0.829);
+}
+
+#fifteen{
+    width: 170px;
+    height: 170px;
+    left: 840.5px;
+    top: 127px;
+    background: rgba(137, 253, 197, 0.733);
+    
+}
+
+header{
+    position: absolute;
+    width: 910px;
+    height: 345px;
+    left: 155px;
+    top: 167px;
+    z-index: 999;
+}
+
+header .title{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+    text-align: center;
+    width: 72%;
+    margin: 0 auto;
+    color: #000000;
+    padding-right: 68px;
+    margin-bottom: 50px;
+   
+    
+
+}
+
+header .first{
+    padding-right: 68px;
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    line-height: 36px;
+    font-size: 24px;
+}
+
+header .second{
+    padding-right: 68px;
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 36px;
+    font-size: 24px;
+    width: 68%;
+    margin: 0 auto;
+}
+
+header .third{
+    padding-right: 68px;
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 36px;
+    font-size: 24px;
+}
+
+button{
+    position: absolute;
+    width: 151px;
+    height: 49px;
+    left: 500px;
+    top: 740px;
+    background: #15DD7D;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+button div{
+    position: absolute;
+    left: 7.28%;
+    right: 27.15%;
+    top: 28.57%;
+    bottom: 22.45%;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
+#triangle{
+    margin-left: 70%;
+        width: 0;
+        height: 0;
+        border-top: 12px solid transparent;
+        border-left: 24px solid white;
+        border-bottom: 12px solid transparent;   
+}
+
+footer{
+    position: absolute;
+    width: 1152px;
+    height: 49px;
+    left: 0px;
+    top: 1052px;
+   text-shadow: none;
+}
+footer .container{
+    position: absolute;
+    left: 27.34%;
+    right: 27.43%;
+    top: 30.61%;
+    bottom: 30.61%;
+    background: white;
+}
+.container .icon1{
+    position: absolute;
+    height: 16px;
+}
+
+#original{
+    position: absolute;
+    left:5%;
+    top: 30.61%;
+    bottom: 30.61%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    color: #07C4FF;
+
+}
+
+.container .icon2{
+    position: absolute;
+    height: 16px;
+    left: 46%;
+}
+
+#description{
+
+position: absolute;
+left: 50%;
+
+top: 30.61%;
+bottom: 30.61%;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+
+color: #07C4FF;
+}
