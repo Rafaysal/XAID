@@ -126,13 +126,13 @@ button:hover{
 }
 
 
-button div{
+button a{
     position: absolute;
     left: 7.28%;
     right: 27.15%;
     top: 28.57%;
     bottom: 22.45%;
-
+    text-decoration: none;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -143,7 +143,7 @@ button div{
 }
 
 #triangle{
-    margin-left: 70%;
+    margin-left: 80%;
         width: 0;
         height: 0;
         border-top: 12px solid transparent;
