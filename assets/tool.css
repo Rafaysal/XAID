@@ -2,7 +2,7 @@ body{
     position: relative;
     width: 1152px;
     height: 1365px;
-    
+    margin: 0;
 }
 
 header{
@@ -99,4 +99,161 @@ button span{
     /* identical to box height */
 
     color: #FFFFFF;
+}
+
+#background{
+    position: absolute;
+    width: 1147px;
+    height: 960px;
+    left: 64px;
+    top: 433px;
+    z-index: -20;
+    background: rgba(196, 196, 196, 0.8);
+}
+
+#green{
+    position: absolute;
+    width: 31px;
+    height: 380px;
+    left: 65px;
+    top: 568px;
+    z-index: -10;
+    background: #15DD7D;
+}
+#red{
+    position: absolute;
+    width: 31px;
+    height: 380px;
+    left: 65px;
+    top: 948px;
+    z-index: -10;
+    background: #FA4646;;
+}
+
+.tick{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.lines div{
+    position: absolute;
+    left: 65px;
+    width: 1144px;
+    z-index: -8;
+    opacity: 0.15;
+}
+#one{
+    top: 568px;
+    border-top: 1px solid #000000;
+}
+#two{
+    top: 603px;
+    border-top: 1px solid #000000;
+}
+#three{
+    top: 644px;
+    border-top: 1px solid #000000;
+}
+#four{
+    top: 679px;
+    border-top: 1px solid #000000;
+}
+#five{
+    top: 720px;
+    border-top: 1px solid #000000;
+}
+#six{
+    top: 755px;
+    border-top: 1px solid #000000;
+}
+#seven{
+    top: 796px;
+    border-top: 1px solid #000000;
+}
+#eight{
+    top: 831px;
+    border-top: 1px solid #000000;
+}
+#nine{
+    top: 872px;
+    border-top: 1px solid #000000;
+}
+#ten{
+    top: 907px;
+    border-top: 1px solid #000000;
+}
+
+#eleven{
+    top: 948px;
+    border-top: 2px dashed #565656;;
+    opacity: 0.4;
+}
+#accepted{
+    top: 928px;
+    left: 110px;
+    opacity: 1;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 14px;
+    color: #565656;
+}
+#rejected{
+    top: 961px;
+    left: 110px;
+    opacity: 1;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 14px;
+    color: #565656;
+}
+
+#twelve{
+    top: 983px;
+    border-top: 1px solid #000000;
+}
+#thirteen{
+    top: 1024px;
+    border-top: 1px solid #000000;
+}
+#fourteen{
+    top: 1059px;
+    border-top: 1px solid #000000;
+}
+#fifteen{
+    top: 1098px;
+    border-top: 1px solid #000000;
+}
+#sixteen{
+    top: 1133px;
+    border-top: 1px solid #000000;
+}
+#sixteen{
+    top: 1133px;
+    border-top: 1px solid #000000;
+}
+#seventeen{
+    top: 1174px;
+    border-top: 1px solid #000000;
+}
+#eighteen{
+    top: 1209px;
+    border-top: 1px solid #000000;
+}
+#nineteen{
+    top: 1249px;
+    border-top: 1px solid #000000;
+}
+#twenty{
+    top: 1284px;
+    border-top: 1px solid #000000;
+}
+#twentyone{
+    top: 1326px;
+    border-top: 1px solid #000000;
 }
