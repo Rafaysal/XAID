@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="assets/tool.css" type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
     <title>Document</title>
+   
 </head>
+
 <body>
+
     <header>
         <div class='title'>Gender & Loan Applications</div>
         <div class='line'>The Neural Network assigns loan applicants a <strong>score from 0-100%</strong> based on their application features. 
@@ -17,6 +20,7 @@
         <div class='line'>Explore the visualization below to see if <strong>Gender</strong> influences the Neural Network’s decision.</div>
         <div class='bottom'>The Neural Network considers the applicants' 7 features</div>
     </header>
+
     <div class='features'>
         <div>Gender</div>
         <div>Education</div>
@@ -27,10 +31,29 @@
         <div>Loan Duration</div>
         <div>Credit History</div>           
     </div>
-    <button><span>View features</span> </button>
+    <button id='features'><span>View features</span> </button>
 
-        <!-- Add a svg area, empty -->
+    <!--Tip Box 1-->
+    <div id=info1>The network decides the applicant’s<br>
+         <strong>score</strong> on a scale of 0-100%.<br>
+          A score of 50% or greater is <strong class='accepted'>accepted,</strong><br>
+           lower is <strong class='rejected'>rejected.</strong></div>
+    <div class='arrow-right'></div>
+
+     <!--Tip Box 2-->
+       
+       <div id=info2>The network decides the <strong>score</strong> based on <strong>7</strong><br>
+        <strong>features</strong> of the applicants. The average<br>
+        <strong>score</strong> of these <strong>159 applicants is 75%</strong>
+       </div>
+    <div class='arrow-right2'></div>
+    <div class='arrow-right3'></div>
+
+    <!--svg container-->
     <div id="Area"></div>
+    
+
+    <!--Graph formatting background, lines, axis and accept/reject-->
     <div id='background'></div>
     <div id='green'></div>
     <div id='red'></div>
@@ -42,19 +65,232 @@
 
     <div id='accepted'>Accept</div>
     <div id='rejected'>Reject</div>
-
     </section>
+
+    <footer>
+            <div class = 'container'>
+                <image src = 'assets/images/arrow.png' class='icon1'>
+                <div id='original'>View Original Dataset</div>
+                <image src = 'assets/images/arrow.png' class='icon2'>
+                    <a id='description'>View Description of Neural Network</a>
+            </div>
+        </footer>
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
    
     <script>
 
-    d3.csv("loan.csv", function(data) {
-        console.log(data);
+       
+
+    let applicantNum = 0;
+    d3.csv("data/loan.csv", function(data) {
+        let  sum = 0
+        applicantNum = data.length;
+        for(let i=0;i<data.length;i++){
+            sum += parseFloat(data[i]["Original Score"].split('%')[0]);
+        }
+        let avgScore = sum/data.length;
+        console.log(avgScore);
+        let circle = sVg.append("circle")
+        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", applicantNum).style("fill", "black");
+        
+        // Black circle with average 
+
+        let appNum = sVg.append("text")
+        .attr("x",x(44))
+        .attr("y",y(avgScore+7))
+        .attr("fill", 'white')
+        .attr('font-size', 72)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .html(applicantNum);
+
+        let apps = sVg.append("text")
+        .attr("x",x(43.5))
+        .attr("y",y(avgScore+3))
+        .attr("fill", 'white')
+        .attr('font-size', 24)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('applicants w/');
+
+        let average = sVg.append("text")
+        .attr("x",x(44))
+        .attr("y",y(avgScore-9))
+        .attr("fill", 'white')
+        .attr('font-size', 72)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text(Math.round(avgScore)+'%');
+
+        let avg = sVg.append("text")
+        .attr("x",x(45.5))
+        .attr("y",y(avgScore-13))
+        .attr("fill", 'white')
+        .attr('font-size', 24)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('avg score');
+
+        //Tip one 
+
+        let rect1 = sVg.append('rect')
+        .attr('x', x(2))
+        .attr('y', y(avgScore+9))
+        .attr('width', 340)
+        .attr('height', 189)
+        .attr('fill', 'white');
+
+        let hide1 = ()=>{
+            rect1.classed('invisible',!rect1.classed("invisible"));
+            btn1.classed('invisible',!btn1.classed("invisible"));
+            text1.classed('invisible',!text1.classed("invisible"));
+            tri1.classed('invisible',!tri1.classed("invisible"));
+            info1.classed('invisible',!info1.classed("invisible"));
+            rect2.classed('invisible',!rect2.classed("invisible"));
+            btn2.classed('invisible',!btn2.classed("invisible"));
+            btn3.classed('invisible',!btn3.classed("invisible"));
+            text2.classed('invisible',!text2.classed("invisible"));
+            tri2.classed('invisible',!tri2.classed("invisible"));
+            text3.classed('invisible',!text3.classed("invisible"));
+            tri3.classed('invisible',!tri3.classed("invisible"));
+            info2.classed('invisible',!info2.classed("invisible"));
+        };
+
+        
+
+        let hide2 = ()=>{
+            
+            rect2.classed('invisible',!rect2.classed("invisible"));
+            btn2.classed('invisible',!btn2.classed("invisible"));
+            btn3.classed('invisible',!btn3.classed("invisible"));
+            text2.classed('invisible',!text2.classed("invisible"));
+            tri2.classed('invisible',!tri2.classed("invisible"));
+            text3.classed('invisible',!text3.classed("invisible"));
+            tri3.classed('invisible',!tri3.classed("invisible"));
+            info2.classed('invisible',!info2.classed("invisible"));
+
+            rect3.classed('invisible',!rect3.classed("invisible"));
+            
+        };
+
+        let btn1 = sVg.append('rect')
+        .attr('x', x(13))
+        .attr('y', y(avgScore-10))
+        .attr('width', 104)
+        .attr('height', 36)
+        .attr('fill', '#07C4FF')
+        .attr('rx',4)
+        .on("click", hide1);
+
+        let text1 = sVg.append("text")
+        .attr("x",x(14.3))
+        .attr("y",y(avgScore-12.9))
+        .attr("fill", 'white')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Next Tip')
+        .on("click", hide1);
+
+        let bottom1 = (avgScore-12.9)*7.51+46;
+        bottom1 += 'px'
+        let tri1 = d3.select('.arrow-right')
+        .style('bottom',bottom1)
+        .on("click", hide1);
+
+        let bottom2 = (avgScore-12.9)*7.51 + 100;
+        bottom2 += 'px'
+        let info1 = d3.select('#info1')
+        .style('bottom', bottom2);
+
+
+        let rect2 = sVg.append('rect')
+        .attr('x', x(31))
+        .attr('y', y(avgScore-24))
+        .attr('width', 395)
+        .attr('height', 185)
+        .attr('fill', 'white')
+        .classed('invisible', true);
+
+        let btn2 = sVg.append('rect')
+        .attr('x', x(57))
+        .attr('y', y(avgScore-42))
+        .attr('width', 104)
+        .attr('height', 36)
+        .attr('fill', '#07C4FF')
+        .attr('stroke','#07C4FF')
+        .attr('stroke-width',2)
+        .attr('rx',4)
+        .classed('invisible', true)
+        .on("click", hide2);
+
+        let text2 = sVg.append("text")
+        .attr("x",x(58.3))
+        .attr("y",y(avgScore-44.9))
+        .attr("fill", 'white')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Next Tip')
+        .classed('invisible', true)
+        .on("click", hide2);
+
+        let bottom3 = (avgScore-44.8)*7.51+46;
+        bottom3 += 'px'
+        let tri2 = d3.select('.arrow-right2')
+        .style('bottom',bottom3)
+        .classed('invisible', true)
+        .on("click", hide2);
+
+
+        let btn3 = sVg.append('rect')
+        .attr('x', x(33))
+        .attr('y', y(avgScore-42))
+        .attr('width', 104)
+        .attr('height', 36)
+        .attr('fill', 'white')
+        .attr('stroke','black')
+        .attr('stroke-width',2)
+        .attr('rx',4)
+        .classed('invisible', true)
+        .on("click", hide1);
+
+        let text3 = sVg.append("text")
+        .attr("x",x(36.3))
+        .attr("y",y(avgScore-44.9))
+        .attr("fill", 'black')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Last Tip')
+        .classed('invisible', true)
+        .on("click", hide1);
+
+        let bottom4 = (avgScore-44.8)*7.51+46;
+        bottom4 += 'px'
+        let tri3 = d3.select('.arrow-right3')
+        .style('bottom',bottom4)
+        .classed('invisible', true)
+        .on("click", hide1);
+
+        let bottom5 = (avgScore-44.8)*7.51 + 100;
+        bottom5 += 'px'
+        let info2 = d3.select('#info2')
+        .style('bottom', bottom5)
+        .classed('invisible', true);
+
+        let rect3 = sVg.append('rect')
+        .attr('x', x(68))
+        .attr('y', y(avgScore+15))
+        .attr('width', 340)
+        .attr('height', 234)
+        .attr('fill', 'white')
+        .classed('invisible', true);
     });
         
         // set the dimensions and margins of the graph
-        var margin = {top: 545, right: 10, bottom: 30, left: 95},
+        var margin = {top: 545, right: 0, bottom: 30, left: 95},
             width = 1152 - margin.left - margin.right,
             height = 1326 - margin.top - margin.bottom;
         
@@ -67,12 +303,15 @@
           .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
-        // X scale and Axis
+        
 
         var y = d3.scaleLinear()
             .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
             .range([height, 0])       // This is the corresponding value I want in Pixel
             
+        var x = d3.scaleLinear()
+            .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
+            .range([0, width]);       // This is the corresponding value I want in Pixel
         sVg
           .append('g')
           .call(d3.axisLeft(y))
