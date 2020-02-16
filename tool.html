@@ -33,6 +33,20 @@
     </div>
     <button id='features'><span>View features</span> </button>
 
+    <section class='bread-crumb'>
+        <div>Total<i class="arrow right"></i></div>   
+        <div>Groups<i class="arrow right"></i></div>
+        <div>Compare<i class="arrow right"></i></div>
+        <div>Single</div>
+    </section>
+    <div id='total'></div>
+    <div id='groups-1'></div>
+    <div id='groups-2'></div>
+    <div class='compare tl'></div><div class='compare tr'></div>
+    <div class='compare bl'></div><div class='compare br'></div>
+    <div class='single-w'></div><div class='single-b'></div>
+
+
     <!--Tip Box 1-->
     <div id=info1>The network decides the applicant’s<br>
          <strong>score</strong> on a scale of 0-100%.<br>
@@ -95,6 +109,7 @@
 
     let applicantNum = 0;
     d3.csv("data/loan.csv", function(data) {
+        
         let  sum = 0
         applicantNum = data.length;
         

@@ -441,9 +441,117 @@ font-weight: bold;
 font-size: 16px;
 line-height: 19px;
 /* identical to box height */
-
 display: flex;
 align-items: center;
-
 color: #07C4FF;
+}
+
+.bread-crumb{
+    position: absolute;
+    display: flex;
+    top: 385px;
+    left: 100px;
+    width: 540px;
+    justify-content: space-around;
+}
+
+.bread-crumb div{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+i {
+    border: solid gray;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 5px;
+    position: relative;
+    left: 20px;
+  }
+  
+  .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+.bread{
+    width: 80px;
+    justify-content: space-around;
+}
+
+#total{
+    position: absolute;
+    border-radius: 50%;
+    top: 380px;
+    left: 100px;
+    width: 27px;
+    height: 27px;
+    background: black;
+}
+
+#groups-1{
+    position: absolute;
+    border-radius: 50%;
+    top: 390px;
+    left: 234px;
+    width: 19px;
+    height: 19px;
+    background: black;
+}
+
+#groups-2{
+    position: absolute;
+    border-radius: 50%;
+    top: 380px;
+    left: 222px;
+    width: 13px;
+    height: 13px;
+    background: black;
+}
+
+.compare{
+    position: absolute;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    background: black;
+}
+.tr{
+    top: 380px;
+    left: 380px;
+}
+.tl{
+    top: 380px;
+    left: 366px;
+}
+.bl{
+    top: 394px;
+    left: 366px;
+}
+.br{
+    top: 394px;
+    left: 380px;
+}
+.single-w{
+    position: absolute;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    background: white;
+    top: 380px;
+    left: 514px;
+    border: 2px solid black;
+}
+.single-b{
+    position: absolute;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    background: black;
+    top: 392px;
+    left: 533px;
+    
 }
