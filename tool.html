@@ -44,10 +44,21 @@
        
        <div id=info2>The network decides the <strong>score</strong> based on <strong>7</strong><br>
         <strong>features</strong> of the applicants. The average<br>
-        <strong>score</strong> of these <strong>159 applicants is 75%</strong>
+        <strong>score</strong> of these <strong id='tip2'>159 applicants is 75%</strong>
        </div>
     <div class='arrow-right2'></div>
     <div class='arrow-right3'></div>
+
+    <!--Tip Box 3-->
+       
+    <div id=info3>The network splits applicants into<br>
+        <strong>4 groups</strong> based on their similarities.<br>
+         Within each group, it believes these<br>
+         applicants are <strong>similar</strong> in terms of<br> 
+         whether they should be <strong class='accepted'>accepted</strong> or <strong class="rejected">rejected.</strong> 
+       </div>
+    <div class='arrow-right4'></div>
+    <div class='arrow-right5'></div>
 
     <!--svg container-->
     <div id="Area"></div>
@@ -86,13 +97,13 @@
     d3.csv("data/loan.csv", function(data) {
         let  sum = 0
         applicantNum = data.length;
+        
         for(let i=0;i<data.length;i++){
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
         }
         let avgScore = sum/data.length;
-        console.log(avgScore);
         let circle = sVg.append("circle")
-        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", applicantNum).style("fill", "black");
+        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
         
         // Black circle with average 
 
@@ -141,6 +152,22 @@
         .attr('height', 189)
         .attr('fill', 'white');
 
+        let fade1 = () =>{
+            rect1.classed('fade-in',!rect1.classed("fade-in"));
+            btn1.classed('fade-in',!btn1.classed("fade-in"));
+            text1.classed('fade-in',!text1.classed("fade-in"));
+            tri1.classed('fade-in',!tri1.classed("fade-in"));
+            info1.classed('fade-in',!info1.classed("fade-in"));
+            rect2.classed('fade-in',!rect2.classed("fade-in"));
+            btn2.classed('fade-in',!btn2.classed("fade-in"));
+            btn3.classed('fade-in',!btn3.classed("fade-in"));
+            text2.classed('fade-in',!text2.classed("fade-in"));
+            tri2.classed('fade-in',!tri2.classed("fade-in"));
+            text3.classed('fade-in',!text3.classed("fade-in"));
+            tri3.classed('fade-in',!tri3.classed("fade-in"));
+            info2.classed('fade-in',!info2.classed("fade-in"));
+        }
+
         let hide1 = ()=>{
             rect1.classed('invisible',!rect1.classed("invisible"));
             btn1.classed('invisible',!btn1.classed("invisible"));
@@ -155,8 +182,31 @@
             text3.classed('invisible',!text3.classed("invisible"));
             tri3.classed('invisible',!tri3.classed("invisible"));
             info2.classed('invisible',!info2.classed("invisible"));
+
+            fade1()
+            setTimeout(fade1,950)
+
         };
 
+        let fade2 =()=>{
+            rect2.classed('fade-in',!rect2.classed("fade-in"));
+            btn2.classed('fade-in',!btn2.classed("fade-in"));
+            btn3.classed('fade-in',!btn3.classed("fade-in"));
+            text2.classed('fade-in',!text2.classed("fade-in"));
+            tri2.classed('fade-in',!tri2.classed("fade-in"));
+            text3.classed('fade-in',!text3.classed("fade-in"));
+            tri3.classed('fade-in',!tri3.classed("fade-in"));
+            info2.classed('fade-in',!info2.classed("fade-in"));
+
+            rect3.classed('fade-in',!rect3.classed("fade-in"));
+            btn4.classed('fade-in',!btn4.classed("fade-in"));
+            btn5.classed('fade-in',!btn5.classed("fade-in"));
+            text4.classed('fade-in',!text4.classed("fade-in"));
+            tri4.classed('fade-in',!tri4.classed("fade-in"));
+            text5.classed('fade-in',!text5.classed("fade-in"));
+            tri5.classed('fade-in',!tri5.classed("fade-in"));
+            info3.classed('fade-in',!info3.classed("fade-in"));
+        }
         
 
         let hide2 = ()=>{
@@ -171,7 +221,16 @@
             info2.classed('invisible',!info2.classed("invisible"));
 
             rect3.classed('invisible',!rect3.classed("invisible"));
+            btn4.classed('invisible',!btn4.classed("invisible"));
+            btn5.classed('invisible',!btn5.classed("invisible"));
+            text4.classed('invisible',!text4.classed("invisible"));
+            tri4.classed('invisible',!tri4.classed("invisible"));
+            text5.classed('invisible',!text5.classed("invisible"));
+            tri5.classed('invisible',!tri5.classed("invisible"));
+            info3.classed('invisible',!info3.classed("invisible"));
             
+            fade2();
+            setTimeout(fade2,950)
         };
 
         let btn1 = sVg.append('rect')
@@ -204,7 +263,7 @@
         let info1 = d3.select('#info1')
         .style('bottom', bottom2);
 
-
+        
         let rect2 = sVg.append('rect')
         .attr('x', x(31))
         .attr('y', y(avgScore-24))
@@ -280,14 +339,119 @@
         .style('bottom', bottom5)
         .classed('invisible', true);
 
+        let tip2 = d3.select('#tip2')
+        .text(applicantNum+' applicants is '+Math.round(avgScore)+'%.')
+        
+        if(avgScore<45){
+        rect2
+        .attr('y', y(avgScore+48))
+       
+        btn2
+        .attr('y', y(avgScore+30))
+        
+        text2
+        .attr("y",y(avgScore+27))
+       
+        bottom3 = (avgScore+27.3)*7.51+46;
+        bottom3 += 'px'
+        tri2
+        .style('bottom',bottom3);
+
+        btn3
+        .attr('y', y(avgScore+30))
+        
+        text3
+        .attr("y",y(avgScore+27))
+        
+
+        bottom4 = (avgScore+27.3)*7.51+46;
+        bottom4 += 'px'
+        tri3
+        .style('bottom',bottom4);
+
+        let bottom5 = (avgScore+24.8)*7.51 + 120;
+        bottom5 += 'px'
+        info2
+        .style('bottom', bottom5);
+        }
+
+
         let rect3 = sVg.append('rect')
-        .attr('x', x(68))
+        .attr('x', x(66))
         .attr('y', y(avgScore+15))
-        .attr('width', 340)
+        .attr('width', 354)
         .attr('height', 234)
         .attr('fill', 'white')
         .classed('invisible', true);
+
+        let btn4 = sVg.append('rect')
+        .attr('x', x(87))
+        .attr('y', y(avgScore-9))
+        .attr('width', 111)
+        .attr('height', 36)
+        .attr('fill', '#15DD7D')
+        .attr('stroke','#15DD7D;')
+        .attr('stroke-width',2)
+        .attr('rx',4)
+        .classed('invisible', true);
+
+       let text4 = sVg.append("text")
+        .attr("x",x(88.3))
+        .attr("y",y(avgScore-11.9))
+        .attr("fill", 'white')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Next View')
+        .classed('invisible', true);
+
+        let bottom6 = (avgScore-44.8)*7.51+295;
+        bottom6 += 'px'
+        let tri4 = d3.select('.arrow-right4')
+        .style('bottom',bottom6)
+        .classed('invisible', true);
+        
+
+
+        let btn5 = sVg.append('rect')
+        .attr('x', x(68))
+        .attr('y', y(avgScore-9))
+        .attr('width', 111)
+        .attr('height', 36)
+        .attr('fill', 'white')
+        .attr('stroke','black')
+        .attr('stroke-width',2)
+        .attr('rx',4)
+        .classed('invisible', true)
+        .on("click", hide2);
+
+        let text5 = sVg.append("text")
+        .attr("x",x(72))
+        .attr("y",y(avgScore-11.9))
+        .attr("fill", 'black')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Last Tip')
+        .classed('invisible', true)
+        .on("click", hide2);
+
+         let bottom7 = (avgScore-44.8)*7.51+295;
+        bottom7 += 'px'
+        let tri5 = d3.select('.arrow-right5')
+        .style('bottom',bottom7)
+        .classed('invisible', true)
+        .on("click", hide2);
+
+        let bottom8 = (avgScore-44.8)*7.51 + 350;
+        bottom8 += 'px'
+        let info3 = d3.select('#info3')
+        .style('bottom', bottom8)
+        .classed('invisible', true);
+        
     });
+
+
         
         // set the dimensions and margins of the graph
         var margin = {top: 545, right: 0, bottom: 30, left: 95},
