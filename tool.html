@@ -48,6 +48,15 @@
     <div class='single-w'></div><div class='single-b'></div>
     </section>
 
+    <!--Hover info-->
+    <div class='hide-1'>
+    <div class='rect-1'>
+        
+        <div><div class='sqr'> </div>  Males: <span class='men'> 137 (86.16%)</span></div>
+        <div><div class='crc'> </div>  Women: <span class='women'> 22 (13.84%)</span></div>
+    </div>
+    <div class='arrow-down'></div>
+    </div>
     <!--Tip Box 1-->
     <div id=info1>The network decides the applicant’s<br>
          <strong>score</strong> on a scale of 0-100%.<br>
@@ -113,6 +122,8 @@
         
         let  sum = 0
         applicantNum = data.length;
+
+        let view = 1;
         
         for(let i=0;i<data.length;i++){
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
@@ -183,7 +194,22 @@
             blueLength = blue.length*3.6
         }
         
-        
+        let hover1 = d3.select('.hide-1');
+       
+        let mouseOver = ()=>{
+            if(view===1){
+            hover1.transition().duration(600).style("opacity", 1)
+            setTimeout(()=>{hover1.classed('hide-1',false)},560)   
+            }
+        }
+
+        let mouseOut = ()=>{
+            if(view===1){
+            hover1.transition().duration(600).style("opacity", 0)
+            setTimeout(()=>{hover1.classed('hide-1',true)},560)  
+            }
+        }
+
         let circle1 = sVg.append("circle")
         .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
         let circle2 = sVg.append("circle")
@@ -191,11 +217,14 @@
         let circle3 = sVg.append("circle")
         .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
         let circle4 = sVg.append("circle")
-        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-
+        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black")
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
+        
       
         
         // Black circle with average 
+       
 
         let appNum = sVg.append("text")
         .attr("x",x(44))
@@ -204,7 +233,9 @@
         .attr('font-size', 72)
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
-        .html(applicantNum);
+        .html(applicantNum)
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
 
         let apps = sVg.append("text")
         .attr("x",x(43.5))
@@ -213,7 +244,9 @@
         .attr('font-size', 24)
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
-        .text('applicants w/');
+        .text('applicants w/')
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
 
         let average = sVg.append("text")
         .attr("x",x(44))
@@ -222,7 +255,9 @@
         .attr('font-size', 72)
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
-        .text(Math.round(avgScore)+'%');
+        .text(Math.round(avgScore)+'%')
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
 
         let avg = sVg.append("text")
         .attr("x",x(45.5))
@@ -231,8 +266,18 @@
         .attr('font-size', 24)
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
-        .text('avg score');
+        .text('avg score')
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
 
+        
+       let bottom11= (avgScore+23)*7.51+46+'px';
+        let genderRect = d3.select('.rect-1')
+        .style('bottom',bottom11)
+
+        let bottom12= (avgScore+17)*7.51+46+'px';
+        let genderTri = d3.select('.arrow-down')
+        .style('bottom',bottom12)
         //Tip one 
 
         let rect1 = sVg.append('rect')
@@ -595,6 +640,8 @@
             .transition()
             .duration(2000)
             .attr("cx", x(75)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
+
+            view = 2;
         }
         showTotal=()=>{
             setTimeout(()=>{
@@ -632,6 +679,7 @@
             .duration(1000)
             .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
             
+            view = 1;
         }
         let total = d3.select('.tot');
         total.on("click",showTotal);
