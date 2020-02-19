@@ -34,18 +34,19 @@
     <button id='features'><span>View features</span> </button>
 
     <section class='bread-crumb'>
-        <div>Total<i class="arrow right"></i></div>   
-        <div>Groups<i class="arrow right"></i></div>
-        <div>Compare<i class="arrow right"></i></div>
-        <div>Single</div>
+        <div class='tot black'>Total<i class="arrow right"></i></div>   
+        <div class='grp'>Groups<i class="arrow right"></i></div>
+        <div class='comp'>Compare<i class="arrow right"></i></div>
+        <div class='sing'>Single</div>
     </section>
-    <div id='total'></div>
-    <div id='groups-1'></div>
-    <div id='groups-2'></div>
+    <section class='shapes'>
+    <div class='total blackbg'></div>
+    <div class='groups-1 grps'></div>
+    <div class='groups-2 grps'></div>
     <div class='compare tl'></div><div class='compare tr'></div>
     <div class='compare bl'></div><div class='compare br'></div>
     <div class='single-w'></div><div class='single-b'></div>
-
+    </section>
 
     <!--Tip Box 1-->
     <div id=info1>The network decides the applicant’s<br>
@@ -117,8 +118,84 @@
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
         }
         let avgScore = sum/data.length;
-        let circle = sVg.append("circle")
+
+        let purple = data.filter(d=>d["Original Group"]=='Purple'); 
+        let sum1 = 0;
+        for(let i=0;i<purple.length;i++){
+            sum1 += parseFloat(purple[i]["Original Score"].split('%')[0]);
+        }
+        let purpleAvg = sum1/(purple.length);
+        
+        let purpleLength;
+        if((purple.length/data.length)>0.1){
+            purpleLength = purple.length
+        } else if((purple.length/data.length)<0.1&&(purple.length/data.length)>0.05){
+            purpleLength = purple.length*2.3
+        }else if((purple.length/data.length)<0.05){
+            purpleLength = purple.length*3.5
+        }
+
+        let pink = data.filter(d=>d["Original Group"]=='Pink'); 
+        let sum2 = 0;
+        for(let i=0;i<pink.length;i++){
+            sum2 += parseFloat(pink[i]["Original Score"].split('%')[0]);
+        }
+        let pinkAvg = sum2/(pink.length);
+        let pinkLength;
+        
+        if((pink.length/data.length)>0.4){
+            pinkLength = pink.length
+        }else if((pink.length/data.length)<0.1&&(pink.length/data.length)>0.05){
+            pinkLength = pink.length*2.3
+        }else if((pink.length/data.length)<0.05){
+            pinkLength = pink.length*3.5
+        }
+        
+        let orange = data.filter(d=>d["Original Group"]=='Orange'); 
+        let sum3 = 0;
+        for(let i=0;i<orange.length;i++){
+            sum3 += parseFloat(orange[i]["Original Score"].split('%')[0]);
+        }
+        let orangeAvg = sum3/(orange.length);
+        let orangeLength;
+        
+        if((orange.length/data.length)>0.4){
+            orangeLength = orange.length
+        }else if((orange.length/data.length)<0.1&&(orange.length/data.length)>0.05){
+            orangeLength = orange.length*2.3
+        }else if((orange.length/data.length)<0.05){
+            orangeLength = orange.length*3.5
+        }
+
+        let blue = data.filter(d=>d["Original Group"]=='Blue'); 
+        let sum4 = 0;
+        for(let i=0;i<blue.length;i++){
+            sum4 += parseFloat(blue[i]["Original Score"].split('%')[0]);
+        }
+        let blueAvg = sum4/(blue.length);
+        let blueLength;
+        
+        if((blue.length/data.length)>0.4){
+            blueLength = blue.length
+        }else if((blue.length/data.length)<0.1&&(blue.length/data.length)>0.05){
+            blueLength = blue.length*2.3
+        }else if((blue.length/data.length)<0.05){
+            blueLength = blue.length*3.5
+        }
+        
+        
+
+        
+        let circle1 = sVg.append("circle")
         .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+        let circle2 = sVg.append("circle")
+        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+        let circle3 = sVg.append("circle")
+        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+        let circle4 = sVg.append("circle")
+        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+
+      
         
         // Black circle with average 
 
@@ -418,7 +495,10 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next View')
-        .classed('invisible', true);
+        .classed('invisible', true)
+        .on('click', ()=>{
+            showGroup()
+        });
 
         let bottom6 = (avgScore-44.8)*7.51+295;
         bottom6 += 'px'
@@ -426,7 +506,6 @@
         .style('bottom',bottom6)
         .classed('invisible', true);
         
-
 
         let btn5 = sVg.append('rect')
         .attr('x', x(68))
@@ -451,7 +530,7 @@
         .classed('invisible', true)
         .on("click", hide2);
 
-         let bottom7 = (avgScore-44.8)*7.51+295;
+        let bottom7 = (avgScore-44.8)*7.51+295;
         bottom7 += 'px'
         let tri5 = d3.select('.arrow-right5')
         .style('bottom',bottom7)
@@ -463,6 +542,89 @@
         let info3 = d3.select('#info3')
         .style('bottom', bottom8)
         .classed('invisible', true);
+        
+        
+
+        showGroup=()=>{
+            rect1.classed('invisible',true);
+            btn1.classed('invisible', true);
+            text1.classed('invisible',true);
+            tri1.classed('invisible', true);
+            info1.classed('invisible',true);
+            
+            rect2.classed('invisible',true);
+            btn2.classed('invisible',true);
+            btn3.classed('invisible',true);
+            text2.classed('invisible',true);
+            tri2.classed('invisible', true);
+            text3.classed('invisible',true);
+            tri3.classed('invisible',true);
+            info2.classed('invisible',true);
+            
+            rect3.classed('invisible',true);
+            btn4.classed('invisible',true);
+            btn5.classed('invisible',true);
+            text4.classed('invisible',true);
+            tri4.classed('invisible', true);
+            text5.classed('invisible',true);
+            tri5.classed('invisible',true);
+            info3.classed('invisible',true); 
+
+            appNum.classed('invisible',true);
+            apps.classed('invisible',true);
+            avg.classed('invisible',true);
+            average.classed('invisible',true);
+            
+            groups.classed('black', true);
+            gShape.classed('blackbg', true);
+
+            circle1
+            .transition()
+            .duration(2000)
+            .attr("cx", x(60)).attr("cy", y(purpleAvg)).attr("r", purpleLength).style("fill", "#7820CF");
+
+            circle2
+            .transition()
+            .duration(2000)
+            .attr("cx", x(30)).attr("cy", y(pinkAvg)).attr("r", pinkLength).style("fill", "#CF2089");
+           
+            circle3
+            .transition()
+            .duration(2000)
+            .attr("cx", x(45)).attr("cy", y(orangeAvg)).attr("r", orangeLength).style("fill", "#EC863C");
+
+            circle4
+            .transition()
+            .duration(2000)
+            .attr("cx", x(75)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
+        }
+        showTotal=()=>{
+            rect1.classed('invisible',false);
+            btn1.classed('invisible', false);
+            text1.classed('invisible',false);
+            tri1.classed('invisible', false);
+            info1.classed('invisible',false);
+            
+            appNum.classed('invisible',false);
+            apps.classed('invisible',false);
+            avg.classed('invisible',false);
+            average.classed('invisible',false);
+            
+            total.classed('black', true);
+            tShape.classed('blackbg', true);
+            groups.classed('black', false);
+            gShape.classed('blackbg', false);
+
+            
+        }
+        let total = d3.select('.tot');
+        total.on("click",showTotal);
+        let tShape = d3.select('.total');
+
+        let groups = d3.select('.grp');
+        groups.on("click",showGroup);
+        let gShape = d3.selectAll('.grps');
+    
         
     });
 

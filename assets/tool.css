@@ -453,6 +453,7 @@ color: #07C4FF;
     left: 100px;
     width: 540px;
     justify-content: space-around;
+    color: rgba(196, 196, 196, 0.8);
 }
 
 .bread-crumb div{
@@ -482,34 +483,34 @@ i {
     justify-content: space-around;
 }
 
-#total{
+.total{
     position: absolute;
     border-radius: 50%;
     top: 380px;
     left: 100px;
     width: 27px;
     height: 27px;
-    background: black;
+    background: rgba(196, 196, 196, 0.8);
 }
 
-#groups-1{
+.groups-1{
     position: absolute;
     border-radius: 50%;
     top: 390px;
     left: 234px;
     width: 19px;
     height: 19px;
-    background: black;
+    background: rgba(196, 196, 196, 0.8);
 }
 
-#groups-2{
+.groups-2{
     position: absolute;
     border-radius: 50%;
     top: 380px;
     left: 222px;
     width: 13px;
     height: 13px;
-    background: black;
+    background: rgba(196, 196, 196, 0.8);
 }
 
 .compare{
@@ -517,23 +518,27 @@ i {
     border-radius: 50%;
     width: 13px;
     height: 13px;
-    background: black;
+    background: rgba(196, 196, 196, 0.8);
 }
 .tr{
     top: 380px;
     left: 380px;
+    background: rgba(196, 196, 196, 0.8);
 }
 .tl{
     top: 380px;
     left: 366px;
+    background: rgba(196, 196, 196, 0.8);
 }
 .bl{
     top: 394px;
     left: 366px;
+    background: rgba(196, 196, 196, 0.8);
 }
 .br{
     top: 394px;
     left: 380px;
+    background: rgba(196, 196, 196, 0.8);
 }
 .single-w{
     position: absolute;
@@ -543,15 +548,27 @@ i {
     background: white;
     top: 380px;
     left: 514px;
-    border: 2px solid black;
+    border: 2px solid rgba(196, 196, 196, 0.8);;
 }
 .single-b{
     position: absolute;
     border-radius: 50%;
     width: 14px;
     height: 14px;
-    background: black;
+    background: rgba(196, 196, 196, 0.8);
     top: 392px;
     left: 533px;
-    
+}
+
+.gray{
+    background: rgba(196, 196, 196, 0.8);
+    color: rgba(196, 196, 196, 0.8);
+}
+
+.black{
+    color: black;
+}
+
+.blackbg{
+    background: black;
 }
