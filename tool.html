@@ -180,11 +180,9 @@
         }else if((blue.length/data.length)<0.1&&(blue.length/data.length)>0.05){
             blueLength = blue.length*2.3
         }else if((blue.length/data.length)<0.05){
-            blueLength = blue.length*3.5
+            blueLength = blue.length*3.6
         }
         
-        
-
         
         let circle1 = sVg.append("circle")
         .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
@@ -599,6 +597,7 @@
             .attr("cx", x(75)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
         }
         showTotal=()=>{
+            setTimeout(()=>{
             rect1.classed('invisible',false);
             btn1.classed('invisible', false);
             text1.classed('invisible',false);
@@ -614,7 +613,24 @@
             tShape.classed('blackbg', true);
             groups.classed('black', false);
             gShape.classed('blackbg', false);
+            },900)
 
+            circle1
+            .transition()
+            .duration(1000)
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+            circle2
+            .transition()
+            .duration(1000)
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+            circle3
+            .transition()
+            .duration(1000)
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+            circle4
+            .transition()
+            .duration(1000)
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
             
         }
         let total = d3.select('.tot');
@@ -624,8 +640,7 @@
         let groups = d3.select('.grp');
         groups.on("click",showGroup);
         let gShape = d3.selectAll('.grps');
-    
-        
+            
     });
 
 
