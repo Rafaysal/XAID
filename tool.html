@@ -48,7 +48,7 @@
     <div class='single-w'></div><div class='single-b'></div>
     </section>
 
-    <!--Hover info-->
+    <!--Hover Total-->
     <div class='hide-1'>
     <div class='rect-1'>
         
@@ -57,6 +57,30 @@
     </div>
     <div class='arrow-down'></div>
     </div>
+
+    <!--Hover Groups-->
+    <div class='hide-2'>
+        <div class='rect-2'>
+                <div style="color: #7820CF">Purple Group </div>
+                <div>Average Loans for Average Men</div>   
+                <br/> 
+                <section>
+                    <div class='grayInfo'>
+                        <div class='pApp' style="font-weight: bold">125</div>
+                        <div>applicants</div>
+                        
+                        <div class='pAvg' style="font-weight: bold">83.5%</div>
+                        <div>avg score</div>
+                    </div>
+                    <div class='gap'></div>
+                    <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
+                    <div class='typInfo'><span>Average income men</span> and apply for <span>average amount</span> and <span>duration</span> loans.</div></div>
+                </section>      
+        </div>
+        <div class='arrow-down2'></div>
+    </div>
+
+
     <!--Tip Box 1-->
     <div id=info1>The network decides the applicant’s<br>
          <strong>score</strong> on a scale of 0-100%.<br>
@@ -136,7 +160,7 @@
             sum1 += parseFloat(purple[i]["Original Score"].split('%')[0]);
         }
         let purpleAvg = sum1/(purple.length);
-        
+       
         let purpleLength;
         if((purple.length/data.length)>0.1){
             purpleLength = purple.length
@@ -145,6 +169,14 @@
         }else if((purple.length/data.length)<0.05){
             purpleLength = purple.length*3.5
         }
+
+        let bottom20 = (purpleAvg+8)*7.51+46+'px';
+        let bottom21 = (purpleAvg)*7.51+46+'px';
+        let pRect = d3.select('.rect-2')
+        .style('bottom',bottom20)
+        let pArrow = d3.select('.arrow-down2')
+        .style('bottom',bottom21)
+
 
         let pink = data.filter(d=>d["Original Group"]=='Pink'); 
         let sum2 = 0;
@@ -191,10 +223,11 @@
         }else if((blue.length/data.length)<0.1&&(blue.length/data.length)>0.05){
             blueLength = blue.length*2.3
         }else if((blue.length/data.length)<0.05){
-            blueLength = blue.length*3.6
+            blueLength = blue.length*3.6+2
         }
         
         let hover1 = d3.select('.hide-1');
+        let hover2 = d3.select('.hide-2')
        
         let mouseOver = ()=>{
             if(view===1){
@@ -207,6 +240,20 @@
             if(view===1){
             hover1.transition().duration(600).style("opacity", 0)
             setTimeout(()=>{hover1.classed('hide-1',true)},560)  
+            }
+        }
+
+        let mouseOver2 = ()=>{
+                if(view===2){
+                    hover2.transition().duration(600).style("opacity", 1)
+                setTimeout(()=>{hover2.classed('hide-2',false)},560)   
+            }
+        }
+
+        let mouseOut2 = ()=>{
+                if(view===2){
+                    hover2.transition().duration(600).style("opacity", 0)
+                setTimeout(()=>{hover2.classed('hide-2',true)},560)   
             }
         }
 
@@ -589,6 +636,7 @@
         
 
         showGroup=()=>{
+            view = 2;
             rect1.classed('invisible',true);
             btn1.classed('invisible', true);
             text1.classed('invisible',true);
@@ -622,9 +670,12 @@
             gShape.classed('blackbg', true);
 
             circle1
+            .on('mouseover', mouseOver2)
+            .on('mouseout', mouseOut2)
             .transition()
             .duration(2000)
-            .attr("cx", x(60)).attr("cy", y(purpleAvg)).attr("r", purpleLength).style("fill", "#7820CF");
+            .attr("cx", x(60)).attr("cy", y(purpleAvg)).attr("r", purpleLength).style("fill", "#7820CF")
+           
 
             circle2
             .transition()
@@ -641,9 +692,11 @@
             .duration(2000)
             .attr("cx", x(75)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
 
-            view = 2;
+           
         }
         showTotal=()=>{
+            view = 1;
+
             setTimeout(()=>{
             rect1.classed('invisible',false);
             btn1.classed('invisible', false);
@@ -679,7 +732,7 @@
             .duration(1000)
             .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
             
-            view = 1;
+            
         }
         let total = d3.select('.tot');
         total.on("click",showTotal);
@@ -711,15 +764,23 @@
 
         var y = d3.scaleLinear()
             .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
-            .range([height, 0])       // This is the corresponding value I want in Pixel
+            .range([height, 0]);      // This is the corresponding value I want in Pixel
+            
             
         var x = d3.scaleLinear()
             .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
             .range([0, width]);       // This is the corresponding value I want in Pixel
+        
+        
         sVg
           .append('g')
           .call(d3.axisLeft(y))
-          .style("stroke-width", "0");
+          .style("stroke-width", "0")
+        
+         
+
+        
+                     
         
         
         
