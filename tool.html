@@ -64,12 +64,12 @@
                 <div style="color: #7820CF">Purple Group </div>
                 <div>Average Loans for Average Men</div>   
                 <br/> 
-                <section>
+                <section class='cont'>
                     <div class='grayInfo'>
-                        <div class='pApp' style="font-weight: bold">125</div>
+                        <div class='pApp' style="font-weight: bold"></div>
                         <div>applicants</div>
                         
-                        <div class='pAvg' style="font-weight: bold">83.5%</div>
+                        <div class='pAvg' style="font-weight: bold"></div>
                         <div>avg score</div>
                     </div>
                     <div class='gap'></div>
@@ -80,6 +80,27 @@
         <div class='arrow-down2'></div>
     </div>
 
+    <div class='hide-3'>
+            <div class='rect-3'>
+                    <div style="color: #CF2089">Pink Group </div>
+                    <div>Small Loans for Average Women</div>   
+                    <br/> 
+                    <section class='cont'>
+                        <div class='grayInfo'>
+                            <div class='pkApp' style="font-weight: bold">125</div>
+                            <div>applicants</div>
+                            
+                            <div class='pkAvg' style="font-weight: bold">83.5%</div>
+                            <div>avg score</div>
+                        </div>
+                        <div class='gap'></div>
+                        <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
+                        <div class='typInfo'><span>Slightly below average income women</span> that apply for <span>a low amount</span> and <span>long duration</span> loans.</div></div>
+                    </section>      
+            </div>
+            <div class='arrow-down3'></div>
+        </div>
+          
 
     <!--Tip Box 1-->
     <div id=info1>The network decides the applicant’s<br>
@@ -176,7 +197,10 @@
         .style('bottom',bottom20)
         let pArrow = d3.select('.arrow-down2')
         .style('bottom',bottom21)
-
+        let pApp = d3.select('.pApp')
+        .text(purple.length)
+        let pAvg = d3.select('.pAvg')
+        .text(purpleAvg.toPrecision(3)+'%')
 
         let pink = data.filter(d=>d["Original Group"]=='Pink'); 
         let sum2 = 0;
@@ -193,6 +217,17 @@
         }else if((pink.length/data.length)<0.05){
             pinkLength = pink.length*3.5
         }
+
+        let bottom22 = (pinkAvg+8)*7.51+46+'px';
+        let bottom23 = (pinkAvg)*7.51+46+'px';
+        let pkRect = d3.select('.rect-3')
+        .style('bottom',bottom22)
+        let pkArrow = d3.select('.arrow-down3')
+        .style('bottom',bottom23)
+        let pkApp = d3.select('.pkApp')
+        .text(pink.length)
+        let pkAvg = d3.select('.pkAvg')
+        .text(pinkAvg.toPrecision(3)+'%')
         
         let orange = data.filter(d=>d["Original Group"]=='Orange'); 
         let sum3 = 0;
@@ -227,7 +262,9 @@
         }
         
         let hover1 = d3.select('.hide-1');
-        let hover2 = d3.select('.hide-2')
+        let hover2 = d3.select('.hide-2');
+        let hover3 = d3.select('.hide-3');
+        
        
         let mouseOver = ()=>{
             if(view===1){
@@ -256,6 +293,27 @@
                 setTimeout(()=>{hover2.classed('hide-2',true)},560)   
             }
         }
+
+        let mouseOver3 = ()=>{
+                if(view===2){   
+                    hover3.transition().duration(600).style("opacity", 1)
+                    setTimeout(()=>{hover3.classed('hide-3',false)},560)   
+            }
+        }
+
+        let mouseOut3 = ()=>{
+                if(view===2){
+                    hover3.transition().duration(600).style("opacity", 0)
+                setTimeout(()=>{hover3.classed('hide-3',true)},560)   
+            }
+        }
+
+        pArrow
+        .on('mouseover',mouseOver2)
+        .on('mouseout',mouseOut2)
+        pkArrow
+        .on('mouseover',mouseOver3)
+        .on('mouseout',mouseOut3)
 
         let circle1 = sVg.append("circle")
         .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
@@ -678,6 +736,8 @@
            
 
             circle2
+            .on('mouseover', mouseOver3)
+            .on('mouseout', mouseOut3)
             .transition()
             .duration(2000)
             .attr("cx", x(30)).attr("cy", y(pinkAvg)).attr("r", pinkLength).style("fill", "#CF2089");
@@ -690,7 +750,7 @@
             circle4
             .transition()
             .duration(2000)
-            .attr("cx", x(75)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
+            .attr("cx", x(80)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
 
            
         }
@@ -713,7 +773,7 @@
             tShape.classed('blackbg', true);
             groups.classed('black', false);
             gShape.classed('blackbg', false);
-            },900)
+            },500)
 
             circle1
             .transition()

@@ -642,6 +642,7 @@ i {
     padding-top: 10px;
 }
 
+
 .arrow-down2{
     position: absolute;
     left: 703px;
@@ -652,7 +653,7 @@ i {
     border-top: 75px solid white;
 }
 
-.rect-2 section{
+.cont{
     display: flex;
     height: 70px;
     font-size: 13px;
@@ -689,3 +690,46 @@ i {
     opacity: 0;
 }
 
+.hide-3{
+    opacity: 0;
+    
+}
+
+
+.rect-3{
+    position: absolute;
+    text-align: center;
+    background: white;
+    width: 240px;
+    height: 150px;
+    left: 292px;
+    top: 550px;
+    box-sizing: border-box;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-top: 10px;
+}
+
+.arrow-down3{
+    position: absolute;
+    left: 387px;
+    width: 0; 
+    height: 0; 
+    top: 685px;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 75px solid white;
+    
+}
+
+.cont{
+    display: flex;
+    height: 70px;
+    font-size: 13px;
+    width: 92%;
+    margin: 0 auto;
+    font-weight: normal;
+}
