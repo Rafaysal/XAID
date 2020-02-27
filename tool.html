@@ -60,7 +60,7 @@
 
     <!--Hover Groups-->
     <div class='hide-2'>
-        <div class='rect-2'>
+        <div class='rect-2 display'>
                 <div style="color: #7820CF">Purple Group </div>
                 <div>Average Loans for Average Men</div>   
                 <br/> 
@@ -81,16 +81,16 @@
     </div>
 
     <div class='hide-3'>
-            <div class='rect-3'>
+            <div class='rect-3 display'>
                     <div style="color: #CF2089">Pink Group </div>
                     <div>Small Loans for Average Women</div>   
                     <br/> 
                     <section class='cont'>
                         <div class='grayInfo'>
-                            <div class='pkApp' style="font-weight: bold">125</div>
+                            <div class='pkApp' style="font-weight: bold"></div>
                             <div>applicants</div>
                             
-                            <div class='pkAvg' style="font-weight: bold">83.5%</div>
+                            <div class='pkAvg' style="font-weight: bold"></div>
                             <div>avg score</div>
                         </div>
                         <div class='gap'></div>
@@ -100,7 +100,48 @@
             </div>
             <div class='arrow-down3'></div>
         </div>
-          
+        
+        <div class='hide-4'>
+                <div class='rect-4 display'>
+                        <div style="color: #EC863C">Orange Group </div>
+                        <div>Large Loans for Low-Income People</div>   
+                        <br/> 
+                        <section class='cont'>
+                            <div class='grayInfo'>
+                                <div class='oApp' style="font-weight: bold">15</div>
+                                <div>applicants</div>
+                                
+                                <div class='oAvg' style="font-weight: bold">13.5%</div>
+                                <div>avg score</div>
+                            </div>
+                            <div class='gap'></div>
+                            <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
+                            <div class='typInfo'><span>Low-income men and women</span> that ask for <span>large amount</span> and <span>short duration</span> loans.</div></div>
+                        </section>      
+                </div>
+                <div class='arrow-down4'></div>
+        </div>
+
+        <div class='hide-5'>
+                <div class='rect-5 display'>
+                        <div style="color: #3C4EEC">Blue Group </div>
+                        <div>Large Loans for High-Income Women</div>   
+                        <br/> 
+                        <section class='cont'>
+                            <div class='grayInfo'>
+                                <div class='bApp' style="font-weight: bold">6</div>
+                                <div>applicants</div>
+                                
+                                <div class='bAvg' style="font-weight: bold">55.7%</div>
+                                <div>avg score</div>
+                            </div>
+                            <div class='gap'></div>
+                            <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
+                            <div class='typInfo'><span>High-income women</span> that apply for <span>large amount loans.</span></div></div>
+                        </section>      
+                </div>
+                <div class='arrow-down5'></div>
+        </div>
 
     <!--Tip Box 1-->
     <div id=info1>The network decides the applicant’s<br>
@@ -128,6 +169,26 @@
        </div>
     <div class='arrow-right4'></div>
     <div class='arrow-right5'></div>
+
+     
+
+    <!--Tip Box 4-->
+     <div id=info4><strong>Hover</strong> over the groups to see their<br>
+        <strong>average score</strong> and a <strong>description</strong> of<br>
+        the group.</div>
+    <div class='arrow-right6'></div>
+
+     <!--Tip Box 5-->
+    <div id='info5'>One way we can see if this Neural Network’s<br>
+        decisions are impacted by gender is by<br>
+        <strong>flipping</strong> every applicant’s gender and see how their<br>
+        score changes.<br><br>
+        Let’s create a second view of how the network<br>
+        groups the dataset if we reverse the gender:
+    </div>
+    <div class='arrow-right7'></div>
+    <div class='arrow-right8'></div>
+    
 
     <!--svg container-->
     <div id="Area"></div>
@@ -245,6 +306,17 @@
             orangeLength = orange.length*3.5
         }
 
+        let bottom24 = (orangeAvg+8)*7.51+46+'px';
+        let bottom25 = (orangeAvg)*7.51+46+'px';
+        let oRect = d3.select('.rect-4')
+        .style('bottom',bottom24)
+        let oArrow = d3.select('.arrow-down4')
+        .style('bottom',bottom25)
+        let oApp = d3.select('.oApp')
+        .text(orange.length)
+        let oAvg = d3.select('.oAvg')
+        .text(orangeAvg.toPrecision(3)+'%')
+
         let blue = data.filter(d=>d["Original Group"]=='Blue'); 
         let sum4 = 0;
         for(let i=0;i<blue.length;i++){
@@ -260,11 +332,23 @@
         }else if((blue.length/data.length)<0.05){
             blueLength = blue.length*3.6+2
         }
+
+        let bottom26 = (blueAvg+8)*7.51+46+'px';
+        let bottom27 = (blueAvg)*7.51+46+'px';
+        let bRect = d3.select('.rect-5')
+        .style('bottom',bottom26)
+        let bArrow = d3.select('.arrow-down5')
+        .style('bottom',bottom27)
+        let bApp = d3.select('.bApp')
+        .text(blue.length)
+        let bAvg = d3.select('.bAvg')
+        .text(blueAvg.toPrecision(3)+'%')
         
         let hover1 = d3.select('.hide-1');
         let hover2 = d3.select('.hide-2');
         let hover3 = d3.select('.hide-3');
-        
+        let hover4 = d3.select('.hide-4');
+        let hover5 = d3.select('.hide-5');
        
         let mouseOver = ()=>{
             if(view===1){
@@ -307,6 +391,30 @@
                 setTimeout(()=>{hover3.classed('hide-3',true)},560)   
             }
         }
+        let mouseOver4 = ()=>{
+                if(view===2){   
+                    hover4.transition().duration(600).style("opacity", 1)
+                    setTimeout(()=>{hover4.classed('hide-4',false)},560)   
+            }
+        }
+        let mouseOut4 = ()=>{
+                if(view===2){
+                    hover4.transition().duration(600).style("opacity", 0)
+                setTimeout(()=>{hover4.classed('hide-4',true)},560)   
+            }
+        }
+        let mouseOver5 = ()=>{
+                if(view===2){   
+                    hover5.transition().duration(600).style("opacity", 1)
+                    setTimeout(()=>{hover5.classed('hide-5',false)},560)   
+            }
+        }
+        let mouseOut5 = ()=>{
+                if(view===2){
+                    hover5.transition().duration(600).style("opacity", 0)
+                setTimeout(()=>{hover5.classed('hide-5',true)},560)   
+            }
+        }
 
         pArrow
         .on('mouseover',mouseOver2)
@@ -314,6 +422,12 @@
         pkArrow
         .on('mouseover',mouseOver3)
         .on('mouseout',mouseOut3)
+        oArrow
+        .on('mouseover',mouseOver4)
+        .on('mouseout',mouseOut4)
+        bArrow
+        .on('mouseover',mouseOver5)
+        .on('mouseout',mouseOut5)
 
         let circle1 = sVg.append("circle")
         .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
@@ -330,7 +444,6 @@
         
         // Black circle with average 
        
-
         let appNum = sVg.append("text")
         .attr("x",x(44))
         .attr("y",y(avgScore+7))
@@ -383,14 +496,8 @@
         let bottom12= (avgScore+17)*7.51+46+'px';
         let genderTri = d3.select('.arrow-down')
         .style('bottom',bottom12)
+        
         //Tip one 
-
-        let rect1 = sVg.append('rect')
-        .attr('x', x(2))
-        .attr('y', y(avgScore+9))
-        .attr('width', 340)
-        .attr('height', 189)
-        .attr('fill', 'white');
 
         let fade1 = () =>{
             rect1.classed('fade-in',!rect1.classed("fade-in"));
@@ -472,6 +579,13 @@
             fade2();
             setTimeout(fade2,950)
         };
+
+        let rect1 = sVg.append('rect')
+        .attr('x', x(2))
+        .attr('y', y(avgScore+9))
+        .attr('width', 340)
+        .attr('height', 189)
+        .attr('fill', 'white');
 
         let btn1 = sVg.append('rect')
         .attr('x', x(13))
@@ -581,6 +695,7 @@
 
         let tip2 = d3.select('#tip2')
         .text(applicantNum+' applicants is '+Math.round(avgScore)+'%.')
+
         
         if(avgScore<45){
         rect2
@@ -691,10 +806,162 @@
         .style('bottom', bottom8)
         .classed('invisible', true);
         
+        //View 2 Tips
+
+        let fade3= () =>{
+            rect10.classed('fade-in',!rect10.classed("fade-in"));
+            btn10.classed('fade-in',!btn10.classed('fade-in'));
+            text10.classed('fade-in',!text10.classed('fade-in'));
+            tri10.classed('fade-in', !tri10.classed('fade-in'));
+            info4.classed('fade-in',!info4.classed('fade-in'));
+
+            
+            rect12.classed('fade-in',!rect12.classed("fade-in"));
+            btn11.classed('fade-in',!btn11.classed('fade-in'));
+            btn12.classed('fade-in',!btn12.classed('fade-in'));
+            text11.classed('fade-in',!text11.classed('fade-in'));
+            text12.classed('fade-in',!text12.classed('fade-in'));
+            tri11.classed('fade-in', !tri11.classed('fade-in'));
+            tri12.classed('fade-in', !tri12.classed('fade-in'));
+            info5.classed('fade-in',!info5.classed('fade-in'));
+        }
+        let hide3 = ()=>{
+            rect10.classed('invisible',!rect10.classed("invisible"));
+            btn10.classed('invisible',!btn10.classed("invisible"));
+            text10.classed('invisible',!text10.classed("invisible"));
+            tri10.classed('invisible', !tri10.classed("invisible"));
+            info4.classed('invisible',!info4.classed("invisible"));
+
+            rect12.classed('invisible',!rect12.classed("invisible"));
+            btn11.classed('invisible',!btn11.classed('invisible'));
+            btn12.classed('invisible',!btn12.classed('invisible'));
+            text11.classed('invisible',!text11.classed('invisible'));
+            text12.classed('invisible',!text12.classed('invisible'));
+            tri11.classed('invisible', !tri11.classed('invisible'));
+            tri12.classed('invisible', !tri12.classed('invisible'));
+            info5.classed('invisible',!info5.classed('invisible'));
+
+            fade3()
+            setTimeout(fade3,950)
+        };
+
+        let rect10 = sVg.append('rect')
+        .attr('x', x(10))
+        .attr('y', y(53))
+        .attr('width', 340)
+        .attr('height', 189)
+        .classed('invisible', true)
+        .attr('fill', 'white');
+
+        let rect11 = sVg.append('rect')
+        .attr('x', x(10))
+        .attr('y', y(53))
+        .attr('width', 340)
+        .attr('height', 189)
+        .classed('invisible', true)
+        .attr('fill', 'white');
+
+        let btn10 = sVg.append('rect')
+        .attr('x', x(21))
+        .attr('y', y(35))
+        .attr('width', 104)
+        .attr('height', 36)
+        .attr('fill', '#07C4FF')
+        .attr('rx',4)
+        .classed('invisible', true)
+        .on("click", hide3);
+
+        let text10 = sVg.append("text")
+        .attr("x",x(22.3))
+        .attr("y",y(32.1))
+        .attr("fill", 'white')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Next Tip')
+        .classed('invisible', true)
+        .on("click", hide3);
+
+        let bottom30 = (32.1)*7.51+46;
+        bottom30 += 'px'
+        let tri10 = d3.select('.arrow-right6')
+        .style('bottom',bottom30)
+        .classed('invisible', true)
+        .on("click", hide3);
+
+        let bottom31 = (32.1)*7.51 + 80;
+        bottom31 += 'px'
+        let info4 = d3.select('#info4')
+        .style('bottom', bottom31)
+        .classed('invisible', true);
+
+
+        let rect12 = sVg.append('rect')
+        .attr('x', x(57))
+        .attr('y', y(40))
+        .attr('width', 450)
+        .attr('height', 304)
+        .classed('invisible', true)
+        .attr('fill', 'white');
+
+        let btn11 = sVg.append('rect')
+        .attr('x', x(59))
+        .attr('y', y(7))
+        .attr('width', 104)
+        .attr('height', 36)
+        .attr('fill', 'white')
+        .attr('stroke','black')
+        .attr('stroke-width',2)
+        .attr('rx',4)
+        .classed('invisible', true)
+        .on("click", hide3);
+
+        let text11 = sVg.append("text")
+        .attr("x",x(62))
+        .attr("y",y(4.1))
+        .attr("fill", 'black')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Last Tip')
+        .classed('invisible', true)
+        .on("click", hide3);
         
+        let btn12 = sVg.append('rect')
+        .attr('x', x(87))
+        .attr('y', y(7))
+        .attr('width', 104)
+        .attr('height', 36)
+        .attr('fill', '#15DD7D')
+        .attr('stroke','#15DD7D')
+        .attr('stroke-width',2)
+        .attr('rx',4)
+        .classed('invisible', true);
+
+        let text12 = sVg.append("text")
+        .attr("x",x(88))
+        .attr("y",y(4.1))
+        .attr("fill", 'white')
+        .attr('font-size', 14)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('Next View')
+        .classed('invisible', true);
+
+        let tri11 = d3.select('.arrow-right7')
+        .classed('invisible', true)
+       
+
+        let tri12 = d3.select('.arrow-right8')
+        .classed('invisible', true)
+        .on("click", hide3);
+
+        let info5 = d3.select('#info5')
+        .classed('invisible', true);
 
         showGroup=()=>{
             view = 2;
+
             rect1.classed('invisible',true);
             btn1.classed('invisible', true);
             text1.classed('invisible',true);
@@ -727,6 +994,14 @@
             groups.classed('black', true);
             gShape.classed('blackbg', true);
 
+            //Show group tips
+            setTimeout(()=>{rect10.classed('invisible',false);
+            btn10.classed('invisible',false);
+            text10.classed('invisible',false);
+            tri10.classed('invisible', false);
+            info4.classed('invisible',false);},500)
+            
+
             circle1
             .on('mouseover', mouseOver2)
             .on('mouseout', mouseOut2)
@@ -743,15 +1018,24 @@
             .attr("cx", x(30)).attr("cy", y(pinkAvg)).attr("r", pinkLength).style("fill", "#CF2089");
            
             circle3
+            .on('mouseover', mouseOver4)
+            .on('mouseout', mouseOut4)
             .transition()
             .duration(2000)
             .attr("cx", x(45)).attr("cy", y(orangeAvg)).attr("r", orangeLength).style("fill", "#EC863C");
 
             circle4
+            .on('mouseover', mouseOver5)
+            .on('mouseout', mouseOut5)
             .transition()
             .duration(2000)
             .attr("cx", x(80)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
 
+
+            pRect.classed('display',false)
+            pkRect.classed('display',false)
+            oRect.classed('display',false)
+            bRect.classed('display',false)
            
         }
         showTotal=()=>{
@@ -775,6 +1059,23 @@
             gShape.classed('blackbg', false);
             },500)
 
+            //Hide group tip1 - group view
+            rect10.classed('invisible', true);
+            btn10.classed('invisible',true);
+            text10.classed('invisible',true);
+            tri10.classed('invisible', true);
+            info4.classed('invisible',true);
+
+            rect12.classed('invisible',true);
+            btn11.classed('invisible',true);
+            btn12.classed('invisible',true);
+            text11.classed('invisible',true);
+            text12.classed('invisible',true);
+            tri11.classed('invisible', true);
+            tri12.classed('invisible', true);
+            info5.classed('invisible',true);
+
+
             circle1
             .transition()
             .duration(1000)
@@ -792,6 +1093,10 @@
             .duration(1000)
             .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
             
+            pRect.classed('display',true)
+            pkRect.classed('display',true)
+            oRect.classed('display',true)
+            bRect.classed('display',true)
             
         }
         let total = d3.select('.tot');
