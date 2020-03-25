@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+    <!--Header-->
     <header>
         <div class='title'>Gender & Loan Applications</div>
         <div class='line'>The Neural Network assigns loan applicants a <strong>score from 0-100%</strong> based on their application features. 
@@ -32,7 +32,9 @@
         <div>Credit History</div>           
     </div>
     <button id='features'><span>View features</span> </button>
+    
 
+    <!--BreadCrumb-->
     <section class='bread-crumb'>
         <div class='tot black'>Total<i class="arrow right"></i></div>   
         <div class='grp'>Groups<i class="arrow right"></i></div>
@@ -48,17 +50,20 @@
     <div class='single-w'></div><div class='single-b'></div>
     </section>
 
+
     <!--Hover Total-->
     <div class='hide-1'>
     <div class='rect-1'>
         
-        <div><div class='sqr'> </div>  Males: <span class='men'> 137 (86.16%)</span></div>
-        <div><div class='crc'> </div>  Women: <span class='women'> 22 (13.84%)</span></div>
+        <div><div class='sqr'> </div>  Males: <span class='men'> error </span></div>
+        <div><div class='crc'> </div>  Women: <span class='women'> error </span></div>
     </div>
     <div class='arrow-down'></div>
     </div>
 
+    
     <!--Hover Groups-->
+    <!--
     <div class='hide-2'>
         <div class='rect-2 display'>
                 <div style="color: #7820CF">Purple Group </div>
@@ -142,25 +147,30 @@
                 </div>
                 <div class='arrow-down5'></div>
         </div>
-
+        -->
     <!--Tip Box 1-->
+
+  
     <div id=info1>The network decides the applicant’s<br>
          <strong>score</strong> on a scale of 0-100%.<br>
           A score of 50% or greater is <strong class='accepted'>accepted,</strong><br>
            lower is <strong class='rejected'>rejected.</strong></div>
     <div class='arrow-right'></div>
-
+    
+    
      <!--Tip Box 2-->
-       
-       <div id=info2>The network decides the <strong>score</strong> based on <strong>7</strong><br>
+
+        
+        <div id=info2>The network decides the <strong>score</strong> based on <strong>7</strong><br>
         <strong>features</strong> of the applicants. The average<br>
         <strong>score</strong> of these <strong id='tip2'>159 applicants is 75%</strong>
        </div>
     <div class='arrow-right2'></div>
     <div class='arrow-right3'></div>
+    
 
     <!--Tip Box 3-->
-       
+    
     <div id=info3>The network splits applicants into<br>
         <strong>4 groups</strong> based on their similarities.<br>
          Within each group, it believes these<br>
@@ -173,12 +183,15 @@
      
 
     <!--Tip Box 4-->
+    <!--
      <div id=info4><strong>Hover</strong> over the groups to see their<br>
         <strong>average score</strong> and a <strong>description</strong> of<br>
         the group.</div>
     <div class='arrow-right6'></div>
+        -->
 
      <!--Tip Box 5-->
+     <!--
     <div id='info5'>One way we can see if this Neural Network’s<br>
         decisions are impacted by gender is by<br>
         <strong>flipping</strong> every applicant’s gender and see how their<br>
@@ -199,7 +212,7 @@
     </div>
     <div class='arrow-right7'></div>
     <div class='arrow-right8'></div>
-    
+     -->
 
     <!--svg container-->
     <div id="Area"></div>
@@ -237,17 +250,158 @@
     let applicantNum = 0;
     d3.csv("data/loan.csv", function(data) {
         
-        let  sum = 0
-        applicantNum = data.length;
 
         let view = 1;
+
+        let  sum = 0;
+        applicantNum = data.length;
         
+        
+        //Extracting Data
         for(let i=0;i<data.length;i++){
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
         }
         let avgScore = sum/data.length;
+       
+        let arr=[];
+        let hex=[];
+        let j=-1;
+  
+        //Logic to find out how many distinct color groups there are
+        for(let i=0;i<data.length;i++){
+            if(i === 0){
+                arr.push(data[i]["Original Group"])
+                hex.push(data[i]["Original Hex"])
+            }else{
+                if(data[i]["Original Group"]!==data[j]["Original Group"]){
+                    arr.push(data[i]["Original Group"])
+                    hex.push(data[i]["Original Hex"])
+                } 
+            }
+            j++
+        }
+        
+        
+        let colors = []
+        let averages = []
+        let diameters = []
 
-        let purple = data.filter(d=>d["Original Group"]=='Purple'); 
+        //Making arrays for all color groups with their average score and diameter
+        for(let i=0; i<arr.length; i++){
+            colors[i] = data.filter(d=>d["Original Group"]==arr[i]); 
+
+            let sum2 = 0;
+            for(let j=0;j<colors[i].length;j++){
+            sum2 += parseFloat(colors[i][j]["Original Score"].split('%')[0]);}
+            averages[i]=sum2/(colors[i].length);
+     
+            if((colors[i].length/data.length)>0.4){
+            diameters[i] = colors[i].length
+            }else if((colors[i].length/data.length)<0.1&&(colors[i].length/data.length)>0.05){
+            diameters[i] = colors[i].length*2.3
+            }else if((colors[i].length/data.length)<0.05){
+            diameters[i] = colors[i].length*3.5
+            }
+        }
+
+   
+        let circles = []
+        for(let i=0; i<arr.length; i++){
+            circles[i] = sVg.append("circle")
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+        }
+
+       
+
+         // Black circle with average and hover
+
+        let hover1 = d3.select('.hide-1');
+        let mouseOver = ()=>{
+            if(view===1){
+            hover1.transition().duration(600).style("opacity", 1)
+            setTimeout(()=>{hover1.classed('hide-1',false)},560)   
+            }
+        }
+
+        let mouseOut = ()=>{
+            if(view===1){
+            hover1.transition().duration(600).style("opacity", 0)
+            setTimeout(()=>{hover1.classed('hide-1',true)},560)  
+            }
+        }
+
+        let lastIndex = arr.length - 1;
+        circles[lastIndex]
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut); 
+       
+         let appNum = sVg.append("text")
+        .attr("x",x(44))
+        .attr("y",y(avgScore+7))
+        .attr("fill", 'white')
+        .attr('font-size', 72)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .html(applicantNum)
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
+
+        let apps = sVg.append("text")
+        .attr("x",x(43.5))
+        .attr("y",y(avgScore+3))
+        .attr("fill", 'white')
+        .attr('font-size', 24)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('applicants w/')
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
+
+        let average = sVg.append("text")
+        .attr("x",x(44))
+        .attr("y",y(avgScore-9))
+        .attr("fill", 'white')
+        .attr('font-size', 72)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text(Math.round(avgScore)+'%')
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
+
+        let avg = sVg.append("text")
+        .attr("x",x(45.5))
+        .attr("y",y(avgScore-13))
+        .attr("fill", 'white')
+        .attr('font-size', 24)
+        .attr('font-family', 'Roboto')
+        .attr('font-weight','bold')
+        .text('avg score')
+        .on("mouseover",mouseOver)
+        .on("mouseout",mouseOut);
+
+        
+       let bottom11= (avgScore+23)*7.51+46+'px';
+        let genderRect = d3.select('.rect-1')
+        .style('bottom',bottom11)
+
+        let bottom12= (avgScore+17)*7.51+46+'px';
+        let genderTri = d3.select('.arrow-down')
+        .style('bottom',bottom12)
+
+        let totMen = data.filter(d=>d["Gender"]=='Male');
+        console.log(totMen.length)
+        let menPerc = ((totMen.length/data.length).toPrecision(4))*100
+        let men = d3.select('.men')
+        .text(totMen.length +' ('+menPerc+'%)');
+
+        let totWomen = data.filter(d=>d["Gender"]=='Female');
+   
+        let womenPerc = ((totWomen.length/data.length).toPrecision(4))*100
+        let women = d3.select('.women')
+        .text(totWomen.length +' ('+womenPerc+'%)');
+    
+
+        /*let purple = data.filter(d=>d["Original Group"]=='Purple'); 
         let sum1 = 0;
         for(let i=0;i<purple.length;i++){
             sum1 += parseFloat(purple[i]["Original Score"].split('%')[0]);
@@ -355,7 +509,7 @@
         let bAvg = d3.select('.bAvg')
         .text(blueAvg.toPrecision(3)+'%')
         
-        let hover1 = d3.select('.hide-1');
+        
         let hover2 = d3.select('.hide-2');
         let hover3 = d3.select('.hide-3');
         let hover4 = d3.select('.hide-4');
@@ -374,28 +528,28 @@
             setTimeout(()=>{hover1.classed('hide-1',true)},560)  
             }
         }
-
+       
         let mouseOver2 = ()=>{
                 if(view===2){
                     hover2.transition().duration(600).style("opacity", 1)
                 setTimeout(()=>{hover2.classed('hide-2',false)},560)   
             }
         }
-
+        
         let mouseOut2 = ()=>{
                 if(view===2){
                     hover2.transition().duration(600).style("opacity", 0)
                 setTimeout(()=>{hover2.classed('hide-2',true)},560)   
             }
         }
-
+        
         let mouseOver3 = ()=>{
                 if(view===2){   
                     hover3.transition().duration(600).style("opacity", 1)
                     setTimeout(()=>{hover3.classed('hide-3',false)},560)   
             }
         }
-
+        
         let mouseOut3 = ()=>{
                 if(view===2){
                     hover3.transition().duration(600).style("opacity", 0)
@@ -453,61 +607,8 @@
         
       
         
-        // Black circle with average 
-       
-        let appNum = sVg.append("text")
-        .attr("x",x(44))
-        .attr("y",y(avgScore+7))
-        .attr("fill", 'white')
-        .attr('font-size', 72)
-        .attr('font-family', 'Roboto')
-        .attr('font-weight','bold')
-        .html(applicantNum)
-        .on("mouseover",mouseOver)
-        .on("mouseout",mouseOut);
-
-        let apps = sVg.append("text")
-        .attr("x",x(43.5))
-        .attr("y",y(avgScore+3))
-        .attr("fill", 'white')
-        .attr('font-size', 24)
-        .attr('font-family', 'Roboto')
-        .attr('font-weight','bold')
-        .text('applicants w/')
-        .on("mouseover",mouseOver)
-        .on("mouseout",mouseOut);
-
-        let average = sVg.append("text")
-        .attr("x",x(44))
-        .attr("y",y(avgScore-9))
-        .attr("fill", 'white')
-        .attr('font-size', 72)
-        .attr('font-family', 'Roboto')
-        .attr('font-weight','bold')
-        .text(Math.round(avgScore)+'%')
-        .on("mouseover",mouseOver)
-        .on("mouseout",mouseOut);
-
-        let avg = sVg.append("text")
-        .attr("x",x(45.5))
-        .attr("y",y(avgScore-13))
-        .attr("fill", 'white')
-        .attr('font-size', 24)
-        .attr('font-family', 'Roboto')
-        .attr('font-weight','bold')
-        .text('avg score')
-        .on("mouseover",mouseOver)
-        .on("mouseout",mouseOut);
-
-        
-       let bottom11= (avgScore+23)*7.51+46+'px';
-        let genderRect = d3.select('.rect-1')
-        .style('bottom',bottom11)
-
-        let bottom12= (avgScore+17)*7.51+46+'px';
-        let genderTri = d3.select('.arrow-down')
-        .style('bottom',bottom12)
-        
+    
+        */
         //Tip one 
 
         let fade1 = () =>{
@@ -516,6 +617,7 @@
             text1.classed('fade-in',!text1.classed("fade-in"));
             tri1.classed('fade-in',!tri1.classed("fade-in"));
             info1.classed('fade-in',!info1.classed("fade-in"));
+            
             rect2.classed('fade-in',!rect2.classed("fade-in"));
             btn2.classed('fade-in',!btn2.classed("fade-in"));
             btn3.classed('fade-in',!btn3.classed("fade-in"));
@@ -524,6 +626,7 @@
             text3.classed('fade-in',!text3.classed("fade-in"));
             tri3.classed('fade-in',!tri3.classed("fade-in"));
             info2.classed('fade-in',!info2.classed("fade-in"));
+            
         }
 
         let hide1 = ()=>{
@@ -532,6 +635,7 @@
             text1.classed('invisible',!text1.classed("invisible"));
             tri1.classed('invisible',!tri1.classed("invisible"));
             info1.classed('invisible',!info1.classed("invisible"));
+            
             rect2.classed('invisible',!rect2.classed("invisible"));
             btn2.classed('invisible',!btn2.classed("invisible"));
             btn3.classed('invisible',!btn3.classed("invisible"));
@@ -540,12 +644,12 @@
             text3.classed('invisible',!text3.classed("invisible"));
             tri3.classed('invisible',!tri3.classed("invisible"));
             info2.classed('invisible',!info2.classed("invisible"));
-
+            
             fade1()
             setTimeout(fade1,950)
 
         };
-
+        
         let fade2 =()=>{
             rect2.classed('fade-in',!rect2.classed("fade-in"));
             btn2.classed('fade-in',!btn2.classed("fade-in"));
@@ -590,7 +694,7 @@
             fade2();
             setTimeout(fade2,950)
         };
-
+        
         let rect1 = sVg.append('rect')
         .attr('x', x(2))
         .attr('y', y(avgScore+9))
@@ -741,7 +845,7 @@
         .style('bottom', bottom5);
         }
 
-
+       
         let rect3 = sVg.append('rect')
         .attr('x', x(66))
         .attr('y', y(avgScore+15))
@@ -819,6 +923,7 @@
         
         //View 2 Tips
 
+         /*
         let fade3= () =>{
             rect10.classed('fade-in',!rect10.classed("fade-in"));
             btn10.classed('fade-in',!btn10.classed('fade-in'));
@@ -969,7 +1074,7 @@
 
         let info5 = d3.select('#info5')
         .classed('invisible', true);
-
+        */
         showGroup=()=>{
             view = 2;
 
@@ -1005,6 +1110,20 @@
             groups.classed('black', true);
             gShape.classed('blackbg', true);
 
+            let xIncrement = 80/arr.length;
+            let xPos = xIncrement;
+            for(let i=0; i<arr.length; i++){
+            circles[i]
+            .transition()
+            .duration(2000)
+            .attr("cx", x(xPos)).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
+            if(i%2==0){
+            xPos+=2*xIncrement;
+            }else{
+            xPos-=xIncrement;
+            }
+            }
+            /*
             //Show group tips
             setTimeout(()=>{rect10.classed('invisible',false);
             btn10.classed('invisible',false);
@@ -1019,38 +1138,23 @@
             .transition()
             .duration(2000)
             .attr("cx", x(60)).attr("cy", y(purpleAvg)).attr("r", purpleLength).style("fill", "#7820CF")
-           
-
-            circle2
-            .on('mouseover', mouseOver3)
-            .on('mouseout', mouseOut3)
-            .transition()
-            .duration(2000)
-            .attr("cx", x(30)).attr("cy", y(pinkAvg)).attr("r", pinkLength).style("fill", "#CF2089");
-           
-            circle3
-            .on('mouseover', mouseOver4)
-            .on('mouseout', mouseOut4)
-            .transition()
-            .duration(2000)
-            .attr("cx", x(45)).attr("cy", y(orangeAvg)).attr("r", orangeLength).style("fill", "#EC863C");
-
-            circle4
-            .on('mouseover', mouseOver5)
-            .on('mouseout', mouseOut5)
-            .transition()
-            .duration(2000)
-            .attr("cx", x(80)).attr("cy", y(blueAvg)).attr("r", blueLength).style("fill", "#3C4EEC");
 
 
             pRect.classed('display',false)
             pkRect.classed('display',false)
             oRect.classed('display',false)
             bRect.classed('display',false)
-           
+            */
         }
         showTotal=()=>{
             view = 1;
+
+            for(let i=0; i<arr.length; i++){
+            circles[i]
+            .transition()
+            .duration(1000)
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+            }
 
             setTimeout(()=>{
             rect1.classed('invisible',false);
@@ -1068,8 +1172,9 @@
             tShape.classed('blackbg', true);
             groups.classed('black', false);
             gShape.classed('blackbg', false);
-            },500)
+            },800)
 
+            /*
             //Hide group tip1 - group view
             rect10.classed('invisible', true);
             btn10.classed('invisible',true);
@@ -1087,37 +1192,29 @@
             info5.classed('invisible',true);
 
 
+           
+            
             circle1
             .transition()
             .duration(1000)
             .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-            circle2
-            .transition()
-            .duration(1000)
-            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-            circle3
-            .transition()
-            .duration(1000)
-            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-            circle4
-            .transition()
-            .duration(1000)
-            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+           
             
             pRect.classed('display',true)
             pkRect.classed('display',true)
             oRect.classed('display',true)
             bRect.classed('display',true)
-            
+            */
         }
+        
         let total = d3.select('.tot');
         total.on("click",showTotal);
         let tShape = d3.select('.total');
-
+        
         let groups = d3.select('.grp');
         groups.on("click",showGroup);
         let gShape = d3.selectAll('.grps');
-            
+          
     });
 
 
