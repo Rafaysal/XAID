@@ -262,6 +262,7 @@
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
         }
         let avgScore = sum/data.length;
+
        
         let arr=[];
         let hex=[];
@@ -1111,19 +1112,59 @@
             gShape.classed('blackbg', true);
 
             let xIncrement = 80/arr.length;
-            let xPos = xIncrement;
+            let xVal = xIncrement
+            let xPos = [];
+            let rect = []
+            
             for(let i=0; i<arr.length; i++){
-            circles[i]
-            .transition()
-            .duration(2000)
-            .attr("cx", x(xPos)).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
-            if(i%2==0){
-            xPos+=2*xIncrement;
-            }else{
-            xPos-=xIncrement;
-            }
-            }
+                if(i==0){
+                    xVal=xIncrement;
+                    xPos[i]=xVal;
+                }
+                else if(i%2!==0){
+                    xVal+=2*xIncrement;
+                    xPos[i]=xVal;
+                }else{
+                    xVal-=xIncrement;
+                    xPos[i]=xVal;
+                }
+
+                rect[i] = sVg.append('rect')
+                    .attr('x', x(xPos[i]-11.3))
+                    .attr('y', y(averages[i]+25))
+                    .attr('width', 239)
+                    .attr('height', 150)
+                    .attr('fill', 'white')
+                    .style("opacity", 0);
+
+                circles[i]
+                .on('mouseover', ()=>{
+                    rect[i]
+                    .transition(2000)
+                    .style("opacity", 1);
+                })
+                .on('mouseout', ()=>{
+                    rect[i]
+                    .transition(2000)
+                    .style("opacity", 0);
+                })
+                .transition()
+                .duration(2000)
+                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
+            };
+
+                
+           
             /*
+
+            if(i==0){
+                    xPos[i]=xIncrement
+                }
+                else if(i%2==0){
+                    xPos[i]+=2*xIncrement;
+                }else{
+                    xPos[i]-=xIncrement;
+                }
             //Show group tips
             setTimeout(()=>{rect10.classed('invisible',false);
             btn10.classed('invisible',false);
