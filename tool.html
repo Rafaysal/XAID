@@ -247,21 +247,28 @@
 
        
 
-    let applicantNum = 0;
+
+   
+    //1st CSV File
     d3.csv("data/loan.csv", function(data) {
-        
+        //2nd CSV File
+        let tagline = [];
+        d3.csv("data/loan2.csv", function(data){
+            for(let i=0; i<data.length; i++){
+                tagline[i] = data[i]['tagline']
+            }
+        });
 
         let view = 1;
-
         let  sum = 0;
-        applicantNum = data.length;
+        let applicantNum = data.length;
         
         
         //Extracting Data
-        for(let i=0;i<data.length;i++){
+        for(let i=0;i<applicantNum;i++){
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
         }
-        let avgScore = sum/data.length;
+        let avgScore = sum/applicantNum;
 
        
         let arr=[];
@@ -304,7 +311,7 @@
             diameters[i] = colors[i].length*3.5
             }
         }
-
+       
    
         let circles = []
         for(let i=0; i<arr.length; i++){
@@ -1076,6 +1083,8 @@
         let info5 = d3.select('#info5')
         .classed('invisible', true);
         */
+
+        //Function to show grouped view
         showGroup=()=>{
             view = 2;
 
@@ -1114,7 +1123,9 @@
             let xIncrement = 80/arr.length;
             let xVal = xIncrement
             let xPos = [];
-            let rect = []
+            let rect = [];
+            let title = [];
+            let title2 = [];
             
             for(let i=0; i<arr.length; i++){
                 if(i==0){
@@ -1137,16 +1148,50 @@
                     .attr('fill', 'white')
                     .style("opacity", 0);
 
+                title[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]))
+                    .attr("y",y(averages[i]+22))
+                    .attr("fill", hex[i])
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(arr[i]+' Group')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0);
+
+                title2[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]))
+                    .attr("y",y(averages[i]+19.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(tagline[i])
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0);
+
                 circles[i]
                 .on('mouseover', ()=>{
                     rect[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    title[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    title2[i]
                     .transition(2000)
                     .style("opacity", 1);
                 })
                 .on('mouseout', ()=>{
                     rect[i]
                     .transition(2000)
-                    .style("opacity", 0);
+                    .style("opacity", 0)
+                    title[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    title2[i]
+                    .transition(2000)
+                    .style("opacity", 0);;
                 })
                 .transition()
                 .duration(2000)
@@ -1255,7 +1300,6 @@
         let groups = d3.select('.grp');
         groups.on("click",showGroup);
         let gShape = d3.selectAll('.grps');
-          
     });
 
 
