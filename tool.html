@@ -183,15 +183,15 @@
      
 
     <!--Tip Box 4-->
-    <!--
+    
      <div id=info4><strong>Hover</strong> over the groups to see their<br>
         <strong>average score</strong> and a <strong>description</strong> of<br>
         the group.</div>
     <div class='arrow-right6'></div>
-        -->
+        
 
      <!--Tip Box 5-->
-     <!--
+     
     <div id='info5'>One way we can see if this Neural Network’s<br>
         decisions are impacted by gender is by<br>
         <strong>flipping</strong> every applicant’s gender and see how their<br>
@@ -212,7 +212,10 @@
     </div>
     <div class='arrow-right7'></div>
     <div class='arrow-right8'></div>
-     -->
+     
+
+    <div class='divider'></div>
+
 
     <!--svg container-->
     <div id="Area"></div>
@@ -246,22 +249,28 @@
     <script>
 
        
-
-
+    
+   
    
     //1st CSV File
     d3.csv("data/loan.csv", function(data) {
         //2nd CSV File
-        let tagline = [];
-        d3.csv("data/loan2.csv", function(data){
-            for(let i=0; i<data.length; i++){
-                tagline[i] = data[i]['tagline']
-            }
-        });
+    
 
         let view = 1;
         let  sum = 0;
         let applicantNum = data.length;
+
+        let tagline = [];
+        let profile = [];
+        d3.csv("data/loan_2.csv", function(data){
+                for(let i=0; i<data.length; i++){
+                    tagline.push(data[i]['tagline'])
+                    profile.push(data[i]['profile'])
+                }
+        });
+    
+
         
         
         //Extracting Data
@@ -271,8 +280,10 @@
         let avgScore = sum/applicantNum;
 
        
-        let arr=[];
+       let arr=[];
+
         let hex=[];
+   
         let j=-1;
   
         //Logic to find out how many distinct color groups there are
@@ -288,33 +299,61 @@
             }
             j++
         }
-        
-        
+        console.log(arr)
+    
         let colors = []
+        let flippedColors = []
         let averages = []
-        let diameters = []
+        let flippedAverages = [];
+        let diameters = [];
+        let flippedDiameters = [];
 
         //Making arrays for all color groups with their average score and diameter
         for(let i=0; i<arr.length; i++){
             colors[i] = data.filter(d=>d["Original Group"]==arr[i]); 
-
             let sum2 = 0;
             for(let j=0;j<colors[i].length;j++){
             sum2 += parseFloat(colors[i][j]["Original Score"].split('%')[0]);}
             averages[i]=sum2/(colors[i].length);
      
-            if((colors[i].length/data.length)>0.4){
+            if((colors[i].length/data.length)>0.2){
             diameters[i] = colors[i].length
+            }else if((colors[i].length/data.length)>0.2){
+            diameters[i] = colors[i].length*1.3
+            }else if((colors[i].length/data.length)>0.1){
+            diameters[i] = colors[i].length*1.7
             }else if((colors[i].length/data.length)<0.1&&(colors[i].length/data.length)>0.05){
             diameters[i] = colors[i].length*2.3
             }else if((colors[i].length/data.length)<0.05){
             diameters[i] = colors[i].length*3.5
             }
+
+            flippedColors[i] = data.filter(d=>d["Flipped Group"]==arr[i]); 
+            let sum3 = 0;
+            for(let j=0;j<flippedColors[i].length;j++){
+            sum3 += parseFloat(flippedColors[i][j]["Flipped Score"].split('%')[0]);}
+            flippedAverages[i]=sum3/(flippedColors[i].length);
+     
+            if((flippedColors[i].length/data.length)>0.2){
+            flippedDiameters[i] = flippedColors[i].length
+            }else if((colors[i].length/data.length)>0.2){
+            flippedDiameters[i] = flippedColors[i].length*1.3
+            }else if((flippedColors[i].length/data.length)>0.1){
+            flippedDiameters[i] = flippedColors[i].length*1.7
+            }else if((flippedColors[i].length/data.length)<0.1&&(flippedColors[i].length/data.length)>0.05){
+            flippedDiameters[i] = flippedColors[i].length*2.3
+            }else if((flippedColors[i].length/data.length)<0.05){
+            flippedDiameters[i] = flippedColors[i].length*3.5
+            }
         }
-       
+        console.log(flippedDiameters)
    
         let circles = []
+        let flippedCircles = []
         for(let i=0; i<arr.length; i++){
+            flippedCircles[i] = sVg.append("circle")
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+
             circles[i] = sVg.append("circle")
             .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
         }
@@ -339,6 +378,7 @@
         }
 
         let lastIndex = arr.length - 1;
+        console.log(arr.length)
         circles[lastIndex]
         .on("mouseover",mouseOver)
         .on("mouseout",mouseOut); 
@@ -407,216 +447,7 @@
         let womenPerc = ((totWomen.length/data.length).toPrecision(4))*100
         let women = d3.select('.women')
         .text(totWomen.length +' ('+womenPerc+'%)');
-    
 
-        /*let purple = data.filter(d=>d["Original Group"]=='Purple'); 
-        let sum1 = 0;
-        for(let i=0;i<purple.length;i++){
-            sum1 += parseFloat(purple[i]["Original Score"].split('%')[0]);
-        }
-        let purpleAvg = sum1/(purple.length);
-       
-        let purpleLength;
-        if((purple.length/data.length)>0.1){
-            purpleLength = purple.length
-        } else if((purple.length/data.length)<0.1&&(purple.length/data.length)>0.05){
-            purpleLength = purple.length*2.3
-        }else if((purple.length/data.length)<0.05){
-            purpleLength = purple.length*3.5
-        }
-
-        let bottom20 = (purpleAvg+8)*7.51+46+'px';
-        let bottom21 = (purpleAvg)*7.51+46+'px';
-        let pRect = d3.select('.rect-2')
-        .style('bottom',bottom20)
-        let pArrow = d3.select('.arrow-down2')
-        .style('bottom',bottom21)
-        let pApp = d3.select('.pApp')
-        .text(purple.length)
-        let pAvg = d3.select('.pAvg')
-        .text(purpleAvg.toPrecision(3)+'%')
-
-        let pink = data.filter(d=>d["Original Group"]=='Pink'); 
-        let sum2 = 0;
-        for(let i=0;i<pink.length;i++){
-            sum2 += parseFloat(pink[i]["Original Score"].split('%')[0]);
-        }
-        let pinkAvg = sum2/(pink.length);
-        let pinkLength;
-        
-        if((pink.length/data.length)>0.4){
-            pinkLength = pink.length
-        }else if((pink.length/data.length)<0.1&&(pink.length/data.length)>0.05){
-            pinkLength = pink.length*2.3
-        }else if((pink.length/data.length)<0.05){
-            pinkLength = pink.length*3.5
-        }
-
-        let bottom22 = (pinkAvg+8)*7.51+46+'px';
-        let bottom23 = (pinkAvg)*7.51+46+'px';
-        let pkRect = d3.select('.rect-3')
-        .style('bottom',bottom22)
-        let pkArrow = d3.select('.arrow-down3')
-        .style('bottom',bottom23)
-        let pkApp = d3.select('.pkApp')
-        .text(pink.length)
-        let pkAvg = d3.select('.pkAvg')
-        .text(pinkAvg.toPrecision(3)+'%')
-        
-        let orange = data.filter(d=>d["Original Group"]=='Orange'); 
-        let sum3 = 0;
-        for(let i=0;i<orange.length;i++){
-            sum3 += parseFloat(orange[i]["Original Score"].split('%')[0]);
-        }
-        let orangeAvg = sum3/(orange.length);
-        let orangeLength;
-        
-        if((orange.length/data.length)>0.4){
-            orangeLength = orange.length
-        }else if((orange.length/data.length)<0.1&&(orange.length/data.length)>0.05){
-            orangeLength = orange.length*2.3
-        }else if((orange.length/data.length)<0.05){
-            orangeLength = orange.length*3.5
-        }
-
-        let bottom24 = (orangeAvg+8)*7.51+46+'px';
-        let bottom25 = (orangeAvg)*7.51+46+'px';
-        let oRect = d3.select('.rect-4')
-        .style('bottom',bottom24)
-        let oArrow = d3.select('.arrow-down4')
-        .style('bottom',bottom25)
-        let oApp = d3.select('.oApp')
-        .text(orange.length)
-        let oAvg = d3.select('.oAvg')
-        .text(orangeAvg.toPrecision(3)+'%')
-
-        let blue = data.filter(d=>d["Original Group"]=='Blue'); 
-        let sum4 = 0;
-        for(let i=0;i<blue.length;i++){
-            sum4 += parseFloat(blue[i]["Original Score"].split('%')[0]);
-        }
-        let blueAvg = sum4/(blue.length);
-        let blueLength;
-        
-        if((blue.length/data.length)>0.4){
-            blueLength = blue.length
-        }else if((blue.length/data.length)<0.1&&(blue.length/data.length)>0.05){
-            blueLength = blue.length*2.3
-        }else if((blue.length/data.length)<0.05){
-            blueLength = blue.length*3.6+2
-        }
-
-        let bottom26 = (blueAvg+8)*7.51+46+'px';
-        let bottom27 = (blueAvg)*7.51+46+'px';
-        let bRect = d3.select('.rect-5')
-        .style('bottom',bottom26)
-        let bArrow = d3.select('.arrow-down5')
-        .style('bottom',bottom27)
-        let bApp = d3.select('.bApp')
-        .text(blue.length)
-        let bAvg = d3.select('.bAvg')
-        .text(blueAvg.toPrecision(3)+'%')
-        
-        
-        let hover2 = d3.select('.hide-2');
-        let hover3 = d3.select('.hide-3');
-        let hover4 = d3.select('.hide-4');
-        let hover5 = d3.select('.hide-5');
-       
-        let mouseOver = ()=>{
-            if(view===1){
-            hover1.transition().duration(600).style("opacity", 1)
-            setTimeout(()=>{hover1.classed('hide-1',false)},560)   
-            }
-        }
-
-        let mouseOut = ()=>{
-            if(view===1){
-            hover1.transition().duration(600).style("opacity", 0)
-            setTimeout(()=>{hover1.classed('hide-1',true)},560)  
-            }
-        }
-       
-        let mouseOver2 = ()=>{
-                if(view===2){
-                    hover2.transition().duration(600).style("opacity", 1)
-                setTimeout(()=>{hover2.classed('hide-2',false)},560)   
-            }
-        }
-        
-        let mouseOut2 = ()=>{
-                if(view===2){
-                    hover2.transition().duration(600).style("opacity", 0)
-                setTimeout(()=>{hover2.classed('hide-2',true)},560)   
-            }
-        }
-        
-        let mouseOver3 = ()=>{
-                if(view===2){   
-                    hover3.transition().duration(600).style("opacity", 1)
-                    setTimeout(()=>{hover3.classed('hide-3',false)},560)   
-            }
-        }
-        
-        let mouseOut3 = ()=>{
-                if(view===2){
-                    hover3.transition().duration(600).style("opacity", 0)
-                setTimeout(()=>{hover3.classed('hide-3',true)},560)   
-            }
-        }
-        let mouseOver4 = ()=>{
-                if(view===2){   
-                    hover4.transition().duration(600).style("opacity", 1)
-                    setTimeout(()=>{hover4.classed('hide-4',false)},560)   
-            }
-        }
-        let mouseOut4 = ()=>{
-                if(view===2){
-                    hover4.transition().duration(600).style("opacity", 0)
-                setTimeout(()=>{hover4.classed('hide-4',true)},560)   
-            }
-        }
-        let mouseOver5 = ()=>{
-                if(view===2){   
-                    hover5.transition().duration(600).style("opacity", 1)
-                    setTimeout(()=>{hover5.classed('hide-5',false)},560)   
-            }
-        }
-        let mouseOut5 = ()=>{
-                if(view===2){
-                    hover5.transition().duration(600).style("opacity", 0)
-                setTimeout(()=>{hover5.classed('hide-5',true)},560)   
-            }
-        }
-
-        pArrow
-        .on('mouseover',mouseOver2)
-        .on('mouseout',mouseOut2)
-        pkArrow
-        .on('mouseover',mouseOver3)
-        .on('mouseout',mouseOut3)
-        oArrow
-        .on('mouseover',mouseOver4)
-        .on('mouseout',mouseOut4)
-        bArrow
-        .on('mouseover',mouseOver5)
-        .on('mouseout',mouseOut5)
-
-        let circle1 = sVg.append("circle")
-        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-        let circle2 = sVg.append("circle")
-        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-        let circle3 = sVg.append("circle")
-        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-        let circle4 = sVg.append("circle")
-        .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black")
-        .on("mouseover",mouseOver)
-        .on("mouseout",mouseOut);
-        
-      
-        
-    
-        */
         //Tip one 
 
         let fade1 = () =>{
@@ -931,7 +762,7 @@
         
         //View 2 Tips
 
-         /*
+         
         let fade3= () =>{
             rect10.classed('fade-in',!rect10.classed("fade-in"));
             btn10.classed('fade-in',!btn10.classed('fade-in'));
@@ -969,6 +800,55 @@
             setTimeout(fade3,950)
         };
 
+        let hideGroupTips =()=>{
+            rect10.classed('invisible', true);
+            btn10.classed('invisible',true);
+            text10.classed('invisible',true);
+            tri10.classed('invisible', true);
+            info4.classed('invisible',true);
+
+            rect12.classed('invisible',true);
+            btn11.classed('invisible',true);
+            btn12.classed('invisible',true);
+            text11.classed('invisible',true);
+            text12.classed('invisible',true);
+            tri11.classed('invisible', true);
+            tri12.classed('invisible', true);
+            info5.classed('invisible',true);
+        }
+
+        hideTotalTips=()=>{
+            rect1.classed('invisible',true);
+            btn1.classed('invisible', true);
+            text1.classed('invisible',true);
+            tri1.classed('invisible', true);
+            info1.classed('invisible',true);
+            
+            rect2.classed('invisible',true);
+            btn2.classed('invisible',true);
+            btn3.classed('invisible',true);
+            text2.classed('invisible',true);
+            tri2.classed('invisible', true);
+            text3.classed('invisible',true);
+            tri3.classed('invisible',true);
+            info2.classed('invisible',true);
+            
+            rect3.classed('invisible',true);
+            btn4.classed('invisible',true);
+            btn5.classed('invisible',true);
+            text4.classed('invisible',true);
+            tri4.classed('invisible', true);
+            text5.classed('invisible',true);
+            tri5.classed('invisible',true);
+            info3.classed('invisible',true); 
+
+            appNum.classed('invisible',true);
+            apps.classed('invisible',true);
+            avg.classed('invisible',true);
+            average.classed('invisible',true);
+        }
+
+        
         let rect10 = sVg.append('rect')
         .attr('x', x(10))
         .attr('y', y(53))
@@ -976,6 +856,9 @@
         .attr('height', 189)
         .classed('invisible', true)
         .attr('fill', 'white');
+        
+
+
 
         let rect11 = sVg.append('rect')
         .attr('x', x(10))
@@ -1013,12 +896,10 @@
         .classed('invisible', true)
         .on("click", hide3);
 
-        let bottom31 = (32.1)*7.51 + 80;
-        bottom31 += 'px'
+        
         let info4 = d3.select('#info4')
-        .style('bottom', bottom31)
         .classed('invisible', true);
-
+        
 
         let rect12 = sVg.append('rect')
         .attr('x', x(57))
@@ -1060,7 +941,11 @@
         .attr('stroke','#15DD7D')
         .attr('stroke-width',2)
         .attr('rx',4)
-        .classed('invisible', true);
+        .classed('invisible', true)
+        .on('click', ()=>{
+            hideGroupTips()
+            showCompare()
+        });;
 
         let text12 = sVg.append("text")
         .attr("x",x(88))
@@ -1070,10 +955,18 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next View')
-        .classed('invisible', true);
+        .classed('invisible', true)
+        .on('click', ()=>{
+            hideGroupTips()
+            showCompare()
+        });
 
         let tri11 = d3.select('.arrow-right7')
         .classed('invisible', true)
+        .on('click', ()=>{
+            hideGroupTips()
+            showCompare()
+        });
        
 
         let tri12 = d3.select('.arrow-right8')
@@ -1082,50 +975,270 @@
 
         let info5 = d3.select('#info5')
         .classed('invisible', true);
-        */
+        
+
+        let xIncrement = 80/arr.length;
+        let xVal = xIncrement
+        let xPos = [];
+        let xPos2 = [];
+        let rect = [];
+        let greyRect =[];
+        let title = [];
+        let title2 = [];
+        let title3 = [];
+        let title4 = [];
+        let description = [];
+
+        let divider = document.getElementsByClassName('divider')[0]
+
+        showCompare=()=>{
+            
+            xIncrement = 45/arr.length;
+
+            for(let i=0; i<arr.length; i++){
+                if(i==0){
+                    xVal=xIncrement;
+                    xPos[i]=xVal+3;
+                    xPos2[i]=xPos[i]+50;
+                }
+                else if(i%2!==0){
+                    xVal+=2*xIncrement;
+                    xPos[i]=xVal;
+                    xPos2[i]=xPos[i]+50;
+                }else{
+                    xVal-=xIncrement;
+                    xPos[i]=xVal;
+                    xPos2[i]=xPos[i]+50;
+                }
+
+                rect[i] = sVg.append('rect')
+                    .attr('x', x(xPos[i]-11.3))
+                    .attr('y', y(averages[i]+25))
+                    .attr('width', 239)
+                    .attr('height', 150)
+                    .attr('fill', 'white')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                title[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]))
+                    .attr("y",y(averages[i]+22))
+                    .attr("fill", hex[i])
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(arr[i]+' Group')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                title2[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]))
+                    .attr("y",y(averages[i]+20))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(tagline[i])
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                greyRect[i] = sVg.append('rect')
+                    .attr('x', x(xPos[i]-10.3))
+                    .attr('y', y(averages[i]+17.5))
+                    .attr('width', 80)
+                    .attr('height', 80)
+                    .attr('fill', '#E5E5E5')
+                    .style("opacity", 0)
+                    .attr('rx', 5)
+                    .style('display', 'none');
+
+                title3[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+15))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(colors[i].length)
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                title4[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+10))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(averages[i].toPrecision(3)+'%')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let title5 = sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+13.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','normal')
+                    .html('applicants')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let title6 = sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+8.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','normal')
+                    .html('avg. score')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let title7 = sVg.append("text")
+                    .attr("x",x(xPos[i]+2))
+                    .attr("y",y(averages[i]+16))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html('Typical Profile:')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                
+               /* description[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]+7))
+                    .attr("y",y(averages[i]+8))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(profile[i])
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 1);*/
+                   
+                
+                circles[i]
+                .on('mouseover', ()=>{
+                    rect[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    greyRect[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title2[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title3[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title4[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title5
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title6
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title7
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block');
+                })
+                .on('mouseout', ()=>{
+                    rect[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    greyRect[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title2[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title3[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title4[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title5
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title6
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title7
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                })
+                .transition()
+                .duration(2000)
+                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
+
+                flippedCircles[i]
+                .transition()
+                .duration(2000)
+                .attr("cx", x(xPos2[i])).attr("cy", y(flippedAverages[i])).attr("r", flippedDiameters[i]).style("fill", hex[i]).style('opacity',0.6);
+                };
+                setTimeout(()=>{
+                    divider.style.display = 'block'
+                },850)
+
+            hideGroupTips();
+            hideTotalTips();
+            compare.classed('black', true);
+            cShape.classed('blackbg', true);
+        }
 
         //Function to show grouped view
         showGroup=()=>{
             view = 2;
 
-            rect1.classed('invisible',true);
-            btn1.classed('invisible', true);
-            text1.classed('invisible',true);
-            tri1.classed('invisible', true);
-            info1.classed('invisible',true);
-            
-            rect2.classed('invisible',true);
-            btn2.classed('invisible',true);
-            btn3.classed('invisible',true);
-            text2.classed('invisible',true);
-            tri2.classed('invisible', true);
-            text3.classed('invisible',true);
-            tri3.classed('invisible',true);
-            info2.classed('invisible',true);
-            
-            rect3.classed('invisible',true);
-            btn4.classed('invisible',true);
-            btn5.classed('invisible',true);
-            text4.classed('invisible',true);
-            tri4.classed('invisible', true);
-            text5.classed('invisible',true);
-            tri5.classed('invisible',true);
-            info3.classed('invisible',true); 
+            hideTotalTips();
+            compare.classed('black', false);
+            cShape.classed('blackbg', false);
 
-            appNum.classed('invisible',true);
-            apps.classed('invisible',true);
-            avg.classed('invisible',true);
-            average.classed('invisible',true);
+            setTimeout(()=>{
+                    divider.style.display = 'none'
+            },500)
+           
             
             groups.classed('black', true);
             gShape.classed('blackbg', true);
 
-            let xIncrement = 80/arr.length;
-            let xVal = xIncrement
-            let xPos = [];
-            let rect = [];
-            let title = [];
-            let title2 = [];
+            xIncrement = 80/arr.length
             
             for(let i=0; i<arr.length; i++){
                 if(i==0){
@@ -1146,7 +1259,8 @@
                     .attr('width', 239)
                     .attr('height', 150)
                     .attr('fill', 'white')
-                    .style("opacity", 0);
+                    .style("opacity", 0)
+                    .style('display', 'none');
 
                 title[i]= sVg.append("text")
                     .attr("x",x(xPos[i]))
@@ -1157,42 +1271,185 @@
                     .attr('font-weight','bold')
                     .html(arr[i]+' Group')
                     .attr('text-anchor', 'middle')
-                    .style("opacity", 0);
+                    .style("opacity", 0)
+                    .style('display', 'none');
 
                 title2[i]= sVg.append("text")
                     .attr("x",x(xPos[i]))
-                    .attr("y",y(averages[i]+19.5))
+                    .attr("y",y(averages[i]+20))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
                     .attr('font-family', 'Roboto')
                     .attr('font-weight','bold')
                     .html(tagline[i])
                     .attr('text-anchor', 'middle')
-                    .style("opacity", 0);
+                    .style("opacity", 0)
+                    .style('display', 'none');
 
+                greyRect[i] = sVg.append('rect')
+                    .attr('x', x(xPos[i]-10.3))
+                    .attr('y', y(averages[i]+17.5))
+                    .attr('width', 80)
+                    .attr('height', 80)
+                    .attr('fill', '#E5E5E5')
+                    .style("opacity", 0)
+                    .attr('rx', 5)
+                    .style('display', 'none');
+
+                title3[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+15))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(colors[i].length)
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                title4[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+10))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(averages[i].toPrecision(3)+'%')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let title5 = sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+13.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','normal')
+                    .html('applicants')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let title6 = sVg.append("text")
+                    .attr("x",x(xPos[i]-6.5))
+                    .attr("y",y(averages[i]+8.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','normal')
+                    .html('avg. score')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let title7 = sVg.append("text")
+                    .attr("x",x(xPos[i]+2))
+                    .attr("y",y(averages[i]+16))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html('Typical Profile:')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                
+               /* description[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]+7))
+                    .attr("y",y(averages[i]+8))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(profile[i])
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 1);*/
+                   
+                
                 circles[i]
                 .on('mouseover', ()=>{
                     rect[i]
                     .transition(2000)
                     .style("opacity", 1)
+                    .style('display', 'block')
+                    greyRect[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
                     title[i]
                     .transition(2000)
                     .style("opacity", 1)
+                    .style('display', 'block')
                     title2[i]
                     .transition(2000)
-                    .style("opacity", 1);
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title3[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title4[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title5
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title6
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    title7
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block');
                 })
                 .on('mouseout', ()=>{
                     rect[i]
                     .transition(2000)
                     .style("opacity", 0)
+                    .style('display', 'none');
+                    greyRect[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
                     title[i]
                     .transition(2000)
                     .style("opacity", 0)
+                    .style('display', 'none');
                     title2[i]
                     .transition(2000)
-                    .style("opacity", 0);;
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title3[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title4[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title5
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title6
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                    title7
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none');
                 })
+                .transition()
+                .duration(2000)
+                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
+
+                flippedCircles[i]
                 .transition()
                 .duration(2000)
                 .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
@@ -1200,24 +1457,24 @@
 
                 
            
-            /*
-
-            if(i==0){
-                    xPos[i]=xIncrement
-                }
-                else if(i%2==0){
-                    xPos[i]+=2*xIncrement;
-                }else{
-                    xPos[i]-=xIncrement;
-                }
-            //Show group tips
-            setTimeout(()=>{rect10.classed('invisible',false);
-            btn10.classed('invisible',false);
-            text10.classed('invisible',false);
-            tri10.classed('invisible', false);
-            info4.classed('invisible',false);},500)
             
 
+           
+            //Show group tips
+            setTimeout(()=>{
+                info4.classed('invisible',false);
+                rect10.classed('invisible',false);
+                btn10.classed('invisible',false);
+                text10.classed('invisible',false);
+                tri10.classed('invisible', false);
+            },500)
+            //rect10.classed('invisible',false);
+            //btn10.classed('invisible',false);
+            //text10.classed('invisible',false);
+            //tri10.classed('invisible', false);
+            //info4.classed('invisible',false);},500)
+            
+            /*
             circle1
             .on('mouseover', mouseOver2)
             .on('mouseout', mouseOut2)
@@ -1235,8 +1492,23 @@
         showTotal=()=>{
             view = 1;
 
+            compare.classed('black', false);
+            cShape.classed('blackbg', false);
+
+            setTimeout(()=>{
+                    divider.style.display = 'none'
+            },500)
+
+            groups.classed('black', false);
+            gShape.classed('blackbg', false);
+
             for(let i=0; i<arr.length; i++){
             circles[i]
+            .transition()
+            .duration(1000)
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+
+            flippedCircles[i]
             .transition()
             .duration(1000)
             .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
@@ -1260,37 +1532,9 @@
             gShape.classed('blackbg', false);
             },800)
 
-            /*
+            
             //Hide group tip1 - group view
-            rect10.classed('invisible', true);
-            btn10.classed('invisible',true);
-            text10.classed('invisible',true);
-            tri10.classed('invisible', true);
-            info4.classed('invisible',true);
-
-            rect12.classed('invisible',true);
-            btn11.classed('invisible',true);
-            btn12.classed('invisible',true);
-            text11.classed('invisible',true);
-            text12.classed('invisible',true);
-            tri11.classed('invisible', true);
-            tri12.classed('invisible', true);
-            info5.classed('invisible',true);
-
-
-           
-            
-            circle1
-            .transition()
-            .duration(1000)
-            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
-           
-            
-            pRect.classed('display',true)
-            pkRect.classed('display',true)
-            oRect.classed('display',true)
-            bRect.classed('display',true)
-            */
+            hideGroupTips()
         }
         
         let total = d3.select('.tot');
@@ -1300,6 +1544,11 @@
         let groups = d3.select('.grp');
         groups.on("click",showGroup);
         let gShape = d3.selectAll('.grps');
+
+
+        let compare = d3.select('.comp');
+        compare.on("click",showCompare);
+        let cShape = d3.selectAll('.compare');
     });
 
 
