@@ -885,3 +885,31 @@ i {
     display: none;
     z-index: -5;
 }
+
+.gen{
+    background: rgba(230, 230, 230, 0.767);
+    
+    height: 43px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    display: none;
+    
+}
+
+.o{
+    position: absolute;
+    top: 433px;
+    left: 64px;
+    width: 576px;
+}
+
+.f{
+    position: absolute;
+    top: 433px;
+    left: 665px;
+    width: 546px;
+}

@@ -215,7 +215,8 @@
      
 
     <div class='divider'></div>
-
+    <div class='o gen'>Original Gender</div>
+    <div class='f gen'>Flipped Gender</div>
 
     <!--svg container-->
     <div id="Area"></div>
@@ -982,14 +983,21 @@
         let xPos = [];
         let xPos2 = [];
         let rect = [];
+        let flippedRect = [];
         let greyRect =[];
+        let greyRect2 =[];
         let title = [];
+        let fTitle = [];
         let title2 = [];
+        let fTitle2 = [];
         let title3 = [];
+        let fTitle3 = [];
         let title4 = [];
+        let fTitle4 = [];
         let description = [];
 
         let divider = document.getElementsByClassName('divider')[0]
+        let compTitles = document.getElementsByClassName('gen')
 
         showCompare=()=>{
             
@@ -999,16 +1007,19 @@
                 if(i==0){
                     xVal=xIncrement;
                     xPos[i]=xVal+3;
-                    xPos2[i]=xPos[i]+50;
+                    xPos2[i]=xPos[i]+45;
                 }
                 else if(i%2!==0){
                     xVal+=2*xIncrement;
                     xPos[i]=xVal;
-                    xPos2[i]=xPos[i]+50;
+                    xPos2[i]=xPos[i]+45;
                 }else{
                     xVal-=xIncrement;
                     xPos[i]=xVal;
-                    xPos2[i]=xPos[i]+50;
+                    xPos2[i]=xPos[i]+45;
+                }
+                if(xPos2[i]>89){
+                    xPos2[i]=89
                 }
 
                 rect[i] = sVg.append('rect')
@@ -1125,9 +1136,7 @@
                     .attr('text-anchor', 'middle')
                     .style("opacity", 1);*/
                    
-                
-                circles[i]
-                .on('mouseover', ()=>{
+                let compMouseOver = () =>{
                     rect[i]
                     .transition(2000)
                     .style("opacity", 1)
@@ -1164,8 +1173,46 @@
                     .transition(2000)
                     .style("opacity", 1)
                     .style('display', 'block');
-                })
-                .on('mouseout', ()=>{
+
+                    flippedRect[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle2[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    greyRect2[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle3[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle4[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle5
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle6
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fTitle7
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                }
+                
+                let compMouseOut =()=>{
                     rect[i]
                     .transition(2000)
                     .style("opacity", 0)
@@ -1202,18 +1249,174 @@
                     .transition(2000)
                     .style("opacity", 0)
                     .style('display', 'none');
+
+                    flippedRect[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle2[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    greyRect2[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle3[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle4[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle5
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle6
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fTitle7
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                }
+                circles[i]
+                .on('mouseover', ()=>{
+                    compMouseOver()
+                    
+                })
+                .on('mouseout', ()=>{
+                    compMouseOut()
                 })
                 .transition()
                 .duration(2000)
                 .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
 
+                flippedRect[i] = sVg.append('rect')
+                    .attr('x', x(xPos2[i]-11.3))
+                    .attr('y', y(flippedAverages[i]+25))
+                    .attr('width', 239)
+                    .attr('height', 150)
+                    .attr('fill', 'white')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fTitle[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]))
+                    .attr("y",y(flippedAverages[i]+22))
+                    .attr("fill", hex[i])
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(arr[i]+' Group')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fTitle2[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]))
+                    .attr("y",y(flippedAverages[i]+20))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(tagline[i])
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                
+                greyRect2[i] = sVg.append('rect')
+                    .attr('x', x(xPos2[i]-10.3))
+                    .attr('y', y(flippedAverages[i]+17.5))
+                    .attr('width', 80)
+                    .attr('height', 80)
+                    .attr('fill', '#E5E5E5')
+                    .style("opacity", 0)
+                    .attr('rx', 5)
+                    .style('display', 'none');
+
+                fTitle3[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]-6.5))
+                    .attr("y",y(flippedAverages[i]+15))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(flippedColors[i].length)
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fTitle4[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]-6.5))
+                    .attr("y",y(flippedAverages[i]+10))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html(flippedAverages[i].toPrecision(3)+'%')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let fTitle5 = sVg.append("text")
+                    .attr("x",x(xPos2[i]-6.5))
+                    .attr("y",y(flippedAverages[i]+13.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','normal')
+                    .html('applicants')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let fTitle6 = sVg.append("text")
+                    .attr("x",x(xPos2[i]-6.5))
+                    .attr("y",y(flippedAverages[i]+8.5))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','normal')
+                    .html('avg. score')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                let fTitle7 = sVg.append("text")
+                    .attr("x",x(xPos2[i]+2))
+                    .attr("y",y(flippedAverages[i]+16))
+                    .attr("fill", 'black')
+                    .attr('font-size', 13)
+                    .attr('font-family', 'Roboto')
+                    .attr('font-weight','bold')
+                    .html('Typical Profile:')
+                    .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
                 flippedCircles[i]
+                .on('mouseover', ()=>{
+                    compMouseOver()
+                })
+                .on('mouseout', ()=>{
+                    compMouseOut()
+                })
                 .transition()
                 .duration(2000)
                 .attr("cx", x(xPos2[i])).attr("cy", y(flippedAverages[i])).attr("r", flippedDiameters[i]).style("fill", hex[i]).style('opacity',0.6);
                 };
                 setTimeout(()=>{
                     divider.style.display = 'block'
+                    compTitles[0].style.display = 'block'
+                    compTitles[1].style.display = 'block'
                 },850)
 
             hideGroupTips();
@@ -1232,6 +1435,8 @@
 
             setTimeout(()=>{
                     divider.style.display = 'none'
+                    compTitles[0].style.display = 'none'
+                    compTitles[1].style.display = 'none'
             },500)
            
             
@@ -1497,6 +1702,8 @@
 
             setTimeout(()=>{
                     divider.style.display = 'none'
+                    compTitles[0].style.display = 'none'
+                    compTitles[1].style.display = 'none'
             },500)
 
             groups.classed('black', false);
