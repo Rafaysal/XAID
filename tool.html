@@ -1447,12 +1447,12 @@
                 })
                 .transition()
                 .duration(2000)
-                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
+                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]).style('cursor','pointer');
 
                 flippedCircles[i]
                 .transition()
                 .duration(2000)
-                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]);
+                .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]).style('cursor','pointer');
             };
 
                 
