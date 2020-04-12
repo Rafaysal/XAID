@@ -1743,6 +1743,43 @@
             //Hide group tip1 - group view
             hideGroupTips()
         }
+
+        let animatedShapes = [];
+
+        let k = 0;
+        let z = 0;
+        let showSingle =()=>{
+            for(let i=0; i<arr.length; i++){
+                flippedCircles[i]
+                .transition()
+                .duration(2000)
+                .style('opacity',1);
+
+            for(let j=0; j<Math.floor(diameters[i]/6); j++){
+                    animatedShapes[k] = sVg.append("rect")
+                    .attr('rx', 0).attr('ry',0).attr("x", x(xPos[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("y", y(averages[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("width", '0px').attr("height", '0px').style("fill", 'darkseagreen').style('opacity',1);
+                    k++
+            }   
+            
+            for(let m=0; m<Math.floor(diameters[i]/6); m++){
+                    animatedShapes[z] 
+                    .transition()
+                    .duration((Math.random()*500+500))
+                    .attr("width", '15px').attr("height", '15px')
+                    .transition()
+                    .duration((Math.random()*1000+2000))
+                    .attr("x", x(xPos2[i])-(0.75*flippedDiameters[i])+(Math.random()*1.5*flippedDiameters[i])).attr("y", y(flippedAverages[i])-(0.75*flippedDiameters[i])+(Math.random()*1.5*flippedDiameters[i])).style("fill", 'orangered').attr('rx', 20).attr('ry',20)
+                    .transition()
+                    .duration((Math.random()*500+500))
+                    .attr("width", '0px').attr("height", '0px')
+                    z++
+            }   
+            }
+            single.classed('black', true);
+            singleB.classed('blackbg', true);
+            singleW.style('border-color', 'black')
+        }
+            
         
         let total = d3.select('.tot');
         total.on("click",showTotal);
@@ -1756,8 +1793,14 @@
         let compare = d3.select('.comp');
         compare.on("click",showCompare);
         let cShape = d3.selectAll('.compare');
-    });
 
+        let single = d3.select('.sing');
+        single.on('click', showSingle);
+        let singleW = d3.select('.single-w');
+        let singleB = d3.select('.single-b');
+        });
+
+    
 
         
         // set the dimensions and margins of the graph
