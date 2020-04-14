@@ -347,8 +347,23 @@
             flippedDiameters[i] = flippedColors[i].length*3.5
             }
         }
-        console.log(flippedDiameters)
-   
+
+        let flippedIndex = [];
+        //This for loop is to assign figure out the index/indexes each color transitions to for the singleView section
+        for(let i=0; i<arr.length; i++){
+            let tempArr = [];
+            tempArr = colors[i].map(x => x['Flipped Group']); 
+            
+            tempArr = tempArr.filter((x, i, a) => a.indexOf(x) == i);
+            console.log(tempArr)
+
+            let tempArr2 = [];
+            for(let j=0; j<tempArr.length; j++){
+                tempArr2[j] = arr.indexOf(tempArr[j])
+            }
+            flippedIndex[i]=tempArr2;
+        }
+
         let circles = []
         let flippedCircles = []
         for(let i=0; i<arr.length; i++){
@@ -379,7 +394,7 @@
         }
 
         let lastIndex = arr.length - 1;
-        console.log(arr.length)
+     
         circles[lastIndex]
         .on("mouseover",mouseOver)
         .on("mouseout",mouseOut); 
@@ -438,7 +453,7 @@
         .style('bottom',bottom12)
 
         let totMen = data.filter(d=>d["Gender"]=='Male');
-        console.log(totMen.length)
+        
         let menPerc = ((totMen.length/data.length).toPrecision(4))*100
         let men = d3.select('.men')
         .text(totMen.length +' ('+menPerc+'%)');
@@ -859,8 +874,6 @@
         .attr('fill', 'white');
         
 
-
-
         let rect11 = sVg.append('rect')
         .attr('x', x(10))
         .attr('y', y(53))
@@ -1000,7 +1013,7 @@
         let compTitles = document.getElementsByClassName('gen')
 
         showCompare=()=>{
-            
+           
             xIncrement = 45/arr.length;
 
             for(let i=0; i<arr.length; i++){
@@ -1423,15 +1436,30 @@
             hideTotalTips();
             compare.classed('black', true);
             cShape.classed('blackbg', true);
+
+            if(view ===1){
+                groups.classed('black', true);
+                gShape.classed('blackbg', true);
+            }
+
+            single.classed('black', false);
+            singleB.classed('blackbg', false);
+            singleW.style('border-color', 'rgba(196, 196, 196, 0.8)')
+
+            view = 3;
         }
 
         //Function to show grouped view
         showGroup=()=>{
-            view = 2;
+          
 
             hideTotalTips();
             compare.classed('black', false);
             cShape.classed('blackbg', false);
+
+            single.classed('black', false);
+            singleB.classed('blackbg', false);
+            singleW.style('border-color', 'rgba(196, 196, 196, 0.8)')
 
             setTimeout(()=>{
                     divider.style.display = 'none'
@@ -1658,6 +1686,8 @@
                 .transition()
                 .duration(2000)
                 .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]).style('cursor','pointer');
+
+                view = 2;
             };
 
                 
@@ -1709,6 +1739,10 @@
             groups.classed('black', false);
             gShape.classed('blackbg', false);
 
+            single.classed('black', false);
+            singleB.classed('blackbg', false);
+            singleW.style('border-color', 'rgba(196, 196, 196, 0.8)')
+
             for(let i=0; i<arr.length; i++){
             circles[i]
             .transition()
@@ -1745,14 +1779,17 @@
         }
 
         let animatedShapes = [];
-
         let k = 0;
         let z = 0;
+
         let showSingle =()=>{
+            if(view === 3){
+            
             for(let i=0; i<arr.length; i++){
+
                 flippedCircles[i]
                 .transition()
-                .duration(2000)
+                .duration(1000)
                 .style('opacity',1);
 
             for(let j=0; j<Math.floor(diameters[i]/6); j++){
@@ -1760,24 +1797,31 @@
                     .attr('rx', 0).attr('ry',0).attr("x", x(xPos[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("y", y(averages[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("width", '0px').attr("height", '0px').style("fill", 'darkseagreen').style('opacity',1);
                     k++
             }   
-            
+            console.log(flippedIndex);
+            let len = flippedIndex[i].length;
+
             for(let m=0; m<Math.floor(diameters[i]/6); m++){
+
+                    let ind = flippedIndex[i][(Math.floor(Math.random()*len))]
+
                     animatedShapes[z] 
                     .transition()
-                    .duration((Math.random()*500+500))
-                    .attr("width", '15px').attr("height", '15px')
+                    .duration((Math.random()*900+200))
+                    .attr("width", '16px').attr("height", '16px')
                     .transition()
-                    .duration((Math.random()*1000+2000))
-                    .attr("x", x(xPos2[i])-(0.75*flippedDiameters[i])+(Math.random()*1.5*flippedDiameters[i])).attr("y", y(flippedAverages[i])-(0.75*flippedDiameters[i])+(Math.random()*1.5*flippedDiameters[i])).style("fill", 'orangered').attr('rx', 20).attr('ry',20)
+                    .duration((Math.random()*2000+1200))
+                    .attr("x", x(xPos2[ind])-(0.75*flippedDiameters[ind])+(Math.random()*1.5*flippedDiameters[ind])).attr("y", y(flippedAverages[ind])-(0.75*flippedDiameters[ind])+(Math.random()*1.5*flippedDiameters[ind])).style("fill", 'orangered').attr('rx', 20).attr('ry',20)
                     .transition()
-                    .duration((Math.random()*500+500))
+                    .duration((Math.random()*900+200))
                     .attr("width", '0px').attr("height", '0px')
                     z++
-            }   
+            }  
+               
             }
             single.classed('black', true);
             singleB.classed('blackbg', true);
             singleW.style('border-color', 'black')
+            }
         }
             
         
@@ -1798,6 +1842,7 @@
         single.on('click', showSingle);
         let singleW = d3.select('.single-w');
         let singleB = d3.select('.single-b');
+    
         });
 
     
