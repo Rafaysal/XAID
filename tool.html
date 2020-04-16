@@ -218,6 +218,23 @@
     <div class='o gen'>Original Gender</div>
     <div class='f gen'>Flipped Gender</div>
 
+    <div id=info6>
+        <section id='sec-one'>
+        <img class='l-arrow' src="assets/images/left-arrow.png">
+        <div style="text-align: right"><strong>Original Genders</strong><br></div>
+        </section>
+        <div style="text-align: right">shows our original applicant data.</div><br><br>
+
+        <section id='sec-two'>
+            <div style="text-align: left"><strong>Flipped Genders</strong>
+            <img class='r-arrow' src="assets/images/right-arrow.png"><br>
+         shows our applicants <strong>regrouped</strong> after their
+         genders were flipped</div>
+        </section>
+    </div>
+
+  
+
     <!--svg container-->
     <div id="Area"></div>
     
@@ -256,7 +273,7 @@
     //1st CSV File
     d3.csv("data/loan.csv", function(data) {
         //2nd CSV File
-    
+        console.log(d3)
 
         let view = 1;
         let  sum = 0;

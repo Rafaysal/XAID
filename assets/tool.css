@@ -438,6 +438,44 @@ border-radius: 3px;
     color: #000000;
 }
 
+#info6{
+    position: absolute;
+    width: 330px;
+    height: 220px;
+    left: 480px;
+    top: 980px;
+    background: white;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #000000;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+
+
+#info6 section{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+.l-arrow{
+    width: 120px;
+    height: 20px;
+}
+
+.r-arrow{
+    width: 120px;
+    height: 20px;
+}
+
+
 .accepted{
     color: #15DD7D;
 }
