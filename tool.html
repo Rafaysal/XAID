@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/tool.css" type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <title>Document</title>
    
 </head>
@@ -31,25 +32,121 @@
         <div>Loan Duration</div>
         <div>Credit History</div>           
     </div>
-    <button id='features'><span>View features</span> </button>
-    
+    <button id='features' ><span onclick="showFeatures()">View features</span></button>
 
+   
     <!--BreadCrumb-->
-    <section class='bread-crumb'>
+  
+
+    <section class='bread-crumb' >
         <div class='tot black'>Total<i class="arrow right"></i></div>   
         <div class='grp'>Groups<i class="arrow right"></i></div>
         <div class='comp'>Compare<i class="arrow right"></i></div>
         <div class='sing'>Single</div>
     </section>
+
     <section class='shapes'>
-    <div class='total blackbg'></div>
-    <div class='groups-1 grps'></div>
-    <div class='groups-2 grps'></div>
-    <div class='compare tl'></div><div class='compare tr'></div>
-    <div class='compare bl'></div><div class='compare br'></div>
-    <div class='single-w'></div><div class='single-b'></div>
+        <div class='total blackbg' ></div>
+        <div class='groups-1 grps' ></div>
+        <div class='groups-2 grps' ></div>
+        <div class='compare tl' ></div><div  class='compare tr'></div>
+        <div class='compare bl' ></div><div  class='compare br'></div>
+        <div class='single-w' ></div><div  class='single-b'></div>
     </section>
 
+    <div class='leg'>
+
+    <section class='legend'>
+        <div>Men</div>
+        <div>Women</div>
+        <div>Accept</div>
+        <div>Reject</div>
+    </section>
+
+    <section class='leg-shapes'>
+        <div class='male'></div>
+        <div class='female'></div>
+        <div class='acc-arrow'></div>
+        <div class='rej-arrow'></div>
+    </section>
+
+    </div>
+
+    <div class='divider'></div>
+    <div class='o gen'>Original Gender</div>
+    <div class='f gen'>Flipped Gender</div>
+
+    <table class='table invisible'>
+        
+            <tr class='header'>
+              <th colspan="3">Demographic Features <span class='close'>X</span></th>
+            </tr>
+                <tr class='row'>
+                <td class='row-title'>Gender</td>
+                <td>Male <span id='men'></span></td>
+                <td>Female <span id='women'></span></td>
+                </tr>
+                <tr class='row'>
+                    <td class='row-title'>Education</td>
+                    <td>Graduate <span id='grad'></span></td>
+                    <td>Not Graduate <span id='nonGrad'></span></td>
+                </tr>
+            
+    
+            <tr class='header'>
+                <th colspan="3">Employment Features</th>
+            </tr>
+              <tr class='row' >
+                <td class='row-title'>Employment Status</td>
+                <td>Self-Employed <span id='self'></span></td>
+                <td>Non-Self-Employed <span id='nonSelf'></span></td>
+              </tr>
+              <tr class='row'>
+                  <td class='row-title'>Income</td>
+                  <td colspan='2'>
+                      <span class='three'>Low <span id='lowInc'></span><div class='subtext'>0 to 33rd Percentile</div></span>
+                      <span class='three'>Medium <span id='medInc'></span><div class='subtext'>34th to 66th Percentile</div></span>
+                      <span class='three'>High <span id='highInc'></span><div class='subtext'>67th to 100th Percentile</div></span>
+                </td>
+    
+                
+              </tr>
+    
+    
+              <tr class='header'>
+                    <th colspan="3">Loan Features</th>
+              </tr>
+    
+                  <tr class='row' >
+                        <td class='row-title'>Loan Amount</td>
+                        <td colspan='2'>
+                            <span class='three'>Low <span id='lowLoan'></span><div class='subtext'>0 to 33rd Percentile</div></span>
+                            <span class='three'>Medium <span id='medLoan'></span><div class='subtext'>34th to 66th Percentile</div></span>
+                            <span class='three'>High <span id='highLoan'></span><div class='subtext'>67th to 100th Percentile</div></span>
+                      </td>
+                  </tr>
+    
+                  <tr class='row' >
+                        <td class='row-title'>Loan Duration</td>
+                        <td colspan='2'>
+                            <span class='three'>Short <span id='shortDur'></span><div class='subtext'>0 to 33rd Percentile</div></span>
+                            <span class='three'>Medium <span id='medDur'></span><div class='subtext'>34th to 66th Percentile</div></span>
+                            <span class='three'>Long <span id='longDur'></span><div class='subtext'>67th to 100th Percentile</div></span>
+                      </td>
+                  </tr>
+    
+                  <tr class='header'>
+                        <th colspan="3">Misc Features</th>
+                      </tr>
+                          <tr class='row'>
+                          <td class='row-title'>Credit History</td>
+                          <td>Yes <span id='cred'></span></td>
+                          <td>No <span id='nonCred'></span></td>
+                          </tr>
+                         
+          </table>
+
+ 
 
     <!--Hover Total-->
     <div class='hide-1'>
@@ -62,92 +159,7 @@
     </div>
 
     
-    <!--Hover Groups-->
-    <!--
-    <div class='hide-2'>
-        <div class='rect-2 display'>
-                <div style="color: #7820CF">Purple Group </div>
-                <div>Average Loans for Average Men</div>   
-                <br/> 
-                <section class='cont'>
-                    <div class='grayInfo'>
-                        <div class='pApp' style="font-weight: bold"></div>
-                        <div>applicants</div>
-                        
-                        <div class='pAvg' style="font-weight: bold"></div>
-                        <div>avg score</div>
-                    </div>
-                    <div class='gap'></div>
-                    <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
-                    <div class='typInfo'><span>Average income men</span> and apply for <span>average amount</span> and <span>duration</span> loans.</div></div>
-                </section>      
-        </div>
-        <div class='arrow-down2'></div>
-    </div>
-
-    <div class='hide-3'>
-            <div class='rect-3 display'>
-                    <div style="color: #CF2089">Pink Group </div>
-                    <div>Small Loans for Average Women</div>   
-                    <br/> 
-                    <section class='cont'>
-                        <div class='grayInfo'>
-                            <div class='pkApp' style="font-weight: bold"></div>
-                            <div>applicants</div>
-                            
-                            <div class='pkAvg' style="font-weight: bold"></div>
-                            <div>avg score</div>
-                        </div>
-                        <div class='gap'></div>
-                        <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
-                        <div class='typInfo'><span>Slightly below average income women</span> that apply for <span>a low amount</span> and <span>long duration</span> loans.</div></div>
-                    </section>      
-            </div>
-            <div class='arrow-down3'></div>
-        </div>
-        
-        <div class='hide-4'>
-                <div class='rect-4 display'>
-                        <div style="color: #EC863C">Orange Group </div>
-                        <div>Large Loans for Low-Income People</div>   
-                        <br/> 
-                        <section class='cont'>
-                            <div class='grayInfo'>
-                                <div class='oApp' style="font-weight: bold">15</div>
-                                <div>applicants</div>
-                                
-                                <div class='oAvg' style="font-weight: bold">13.5%</div>
-                                <div>avg score</div>
-                            </div>
-                            <div class='gap'></div>
-                            <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
-                            <div class='typInfo'><span>Low-income men and women</span> that ask for <span>large amount</span> and <span>short duration</span> loans.</div></div>
-                        </section>      
-                </div>
-                <div class='arrow-down4'></div>
-        </div>
-
-        <div class='hide-5'>
-                <div class='rect-5 display'>
-                        <div style="color: #3C4EEC">Blue Group </div>
-                        <div>Large Loans for High-Income Women</div>   
-                        <br/> 
-                        <section class='cont'>
-                            <div class='grayInfo'>
-                                <div class='bApp' style="font-weight: bold">6</div>
-                                <div>applicants</div>
-                                
-                                <div class='bAvg' style="font-weight: bold">55.7%</div>
-                                <div>avg score</div>
-                            </div>
-                            <div class='gap'></div>
-                            <div class='whiteInfo'><div class='typical'>Typical Profile: </div>
-                            <div class='typInfo'><span>High-income women</span> that apply for <span>large amount loans.</span></div></div>
-                        </section>      
-                </div>
-                <div class='arrow-down5'></div>
-        </div>
-        -->
+    
     <!--Tip Box 1-->
 
   
@@ -214,11 +226,8 @@
     <div class='arrow-right8'></div>
      
 
-    <div class='divider'></div>
-    <div class='o gen'>Original Gender</div>
-    <div class='f gen'>Flipped Gender</div>
 
-    <div id=info6>
+    <div id=info6 class=hide-1>
         <section id='sec-one'>
         <img class='l-arrow' src="assets/images/left-arrow.png">
         <div style="text-align: right"><strong>Original Genders</strong><br></div>
@@ -231,8 +240,34 @@
          shows our applicants <strong>regrouped</strong> after their
          genders were flipped</div>
         </section>
+        <button style="cursor: pointer; outline: none" class='comp-btn tip3'><div class='tip3' style="cursor: pointer" style="display: inline-block">Next View</div> </button>
+        <div style="display: inline-block" class='arrow-right9'></div>
     </div>
 
+
+
+    <div id=info7 class=hide-1>
+       <div>
+            After having their genders flipped, modified<br>
+            applicants may now be more similar, in how<br>
+            the NN reaches its decision, to a different<br>
+            group.
+
+            <button style="cursor: pointer; outline: none" class='sing-btn comp-btn tip4'><div class='tip4' style="cursor: pointer" style="display: inline-block">Next View</div> </button>
+            <div style="display: inline-block" class='arrow-right10'></div>
+       </div>
+    </div>
+
+    <div id=info8 class=hide-1>
+        <div>
+            Click on an <strong>Original</strong> group to see where its<br>
+            <strong style="margin-bottom: 10px">applicants</strong> move to after their <strong>gender is flipped.</strong><br><br>
+            <strong>Explore</strong> how the network decides for each<br>group of applicants.
+        </div>
+        <button style="cursor: pointer; outline: none" class='close-btn tip5'><div class='tip5' style="cursor: pointer" style="display: inline-block">Close <span style="font-family: 'Syncopate', sans-serif;; margin-left: 5px">X</span></div> </button>
+        <div style="display: inline-block" class='arrow-right11'></div>
+     </div>
+ 
   
 
     <!--svg container-->
@@ -260,16 +295,25 @@
                 <image src = 'assets/images/arrow.png' class='icon2'>
                     <a id='description'>View Description of Neural Network</a>
             </div>
-        </footer>
+    </footer>
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
    
     <script>
-
-       
     
-   
-   
+    let tagline = [];
+    let profile = [];
+    let flippedProfile = [];
+    
+    //Tagline/Profile CSV File 
+    d3.csv("data/loan 2.csv", function(data){
+                for(let i=0; i<data.length; i++){
+                    tagline.push(data[i]['tagline'])
+                    profile.push(data[i]['profile'])
+                    flippedProfile.push(data[i]['flippedProfile'])
+                }
+    });
+    
     //1st CSV File
     d3.csv("data/loan.csv", function(data) {
         //2nd CSV File
@@ -277,18 +321,39 @@
 
         let view = 1;
         let  sum = 0;
-        let applicantNum = data.length;
+        let applicantNum = data.length;   
+        
 
-        let tagline = [];
-        let profile = [];
-        d3.csv("data/loan_2.csv", function(data){
-                for(let i=0; i<data.length; i++){
-                    tagline.push(data[i]['tagline'])
-                    profile.push(data[i]['profile'])
+        let splitter =(str1)=>{
+                let arr =[]
+                let k = 0;
+                let j = 23;
+                let length = Math.ceil(str1.length/24);
+                let check = length-1;
+                for(let i=0; i<length; i++){
+                    while(str1[j]!==" "){
+                    j--;
+                    }
+                    if(i===check){
+                        arr[i]=str1.slice(k,k+24)    
+                    }else{
+                        arr[i]=str1.slice(k,j)
+                    }
+                    
+                    k = j+1;
+                    j=j+24;
                 }
-        });
-    
-
+                return arr
+        }
+        console.log(profile)
+        let profileArr = []
+        let flippedProfileArr = []
+        for(let i=0; i<profile.length; i++){
+        profileArr.push(splitter(profile[i]))
+        flippedProfileArr.push(splitter(flippedProfile[i]))
+        }
+        console.log(flippedProfileArr)
+       
         
         
         //Extracting Data
@@ -296,7 +361,7 @@
             sum += parseFloat(data[i]["Original Score"].split('%')[0]);
         }
         let avgScore = sum/applicantNum;
-
+      
        
        let arr=[];
 
@@ -305,20 +370,18 @@
         let j=-1;
   
         //Logic to find out how many distinct color groups there are
-        for(let i=0;i<data.length;i++){
-            if(i === 0){
-                arr.push(data[i]["Original Group"])
-                hex.push(data[i]["Original Hex"])
-            }else{
-                if(data[i]["Original Group"]!==data[j]["Original Group"]){
-                    arr.push(data[i]["Original Group"])
-                    hex.push(data[i]["Original Hex"])
-                } 
-            }
-            j++
-        }
+        let origGroupArr = data.map(e =>{
+            return e["Original Group"]
+        })
+        let origHexArr = data.map(e =>{
+            return e["Original Hex"]
+        })
+        arr = origGroupArr.filter((x, i, a) => a.indexOf(x) == i)
+        hex = origHexArr.filter((x, i, a) => a.indexOf(x) == i)
+
         console.log(arr)
-    
+        //
+
         let colors = []
         let flippedColors = []
         let averages = []
@@ -364,6 +427,30 @@
             flippedDiameters[i] = flippedColors[i].length*3.5
             }
         }
+        
+        let genderRatios = [];
+        let flippedGenderRatios = [];
+        for(let i=0; i<colors.length; i++){
+            let maleCount = 0;
+            for(let j=0; j<colors[i].length; j++){  
+                if(colors[i][j]["Gender"]=="Male"){
+                    maleCount++
+                }
+            }
+            genderRatios[i]=maleCount/colors[i].length;
+        }
+        for(let i=0; i<flippedColors.length; i++){
+            let maleCount = 0;
+            for(let j=0; j<flippedColors[i].length; j++){  
+                if(flippedColors[i][j]["Gender"]=="Male"){
+                    maleCount++
+                }
+            }
+            flippedGenderRatios[i]=maleCount/flippedColors[i].length;
+        }
+        console.log(genderRatios);
+        console.log(flippedGenderRatios);
+
 
         let flippedIndex = [];
         //This for loop is to assign figure out the index/indexes each color transitions to for the singleView section
@@ -372,7 +459,7 @@
             tempArr = colors[i].map(x => x['Flipped Group']); 
             
             tempArr = tempArr.filter((x, i, a) => a.indexOf(x) == i);
-            console.log(tempArr)
+            
 
             let tempArr2 = [];
             for(let j=0; j<tempArr.length; j++){
@@ -385,12 +472,13 @@
         let flippedCircles = []
         for(let i=0; i<arr.length; i++){
             flippedCircles[i] = sVg.append("circle")
-            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black").style('cursor','pointer');
 
             circles[i] = sVg.append("circle")
-            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black");
+            .attr("cx", x(50)).attr("cy", y(avgScore)).attr("r", 159).style("fill", "black").style('cursor','pointer');
         }
 
+     
        
 
          // Black circle with average and hover
@@ -481,6 +569,150 @@
         let women = d3.select('.women')
         .text(totWomen.length +' ('+womenPerc+'%)');
 
+        //View Feature numbers
+         
+        let males = 0;
+        let maleRatio = 0;
+        let femaleRatio = 0;
+
+        let graduates = 0;
+        let graduateRatio = 0;
+        let nonGraduateRatio = 0;
+
+        let selfEmployed = 0;
+        let selfRatio = 0;
+        let nonSelfRatio = 0;
+
+        let credHist = 0;
+        let credRatio = 0;
+        let nonCredRatio = 0;
+    
+       
+        for(let i=0;i<applicantNum;i++){
+            if(data[i]["Gender"]==='Male'){
+                males++
+            }
+            if(data[i]["Education"]==='Graduate'){
+                graduates++
+            }
+            if(data[i]["Self-Employed"]==='Yes'){
+                selfEmployed++
+            }
+            if(data[i]["Credit_History"]==='Yes'){
+                credHist++
+            }
+        }
+        maleRatio = '('+((males/applicantNum)*100).toFixed(2)+'%)'
+        femaleRatio = '('+(((applicantNum-males)/applicantNum)*100).toFixed(2)+'%)'
+
+        let menRatio = d3.select('#men')
+        .text(maleRatio)
+        let womenRatio = d3.select('#women')
+        .text(femaleRatio)
+
+        graduateRatio = '('+((graduates/applicantNum)*100).toFixed(2)+'%)'
+        nonGraduateRatio = '('+(((applicantNum-graduates)/applicantNum)*100).toFixed(2)+'%)'
+
+        let gradRatio = d3.select('#grad')
+        .text(graduateRatio)
+        let nonGradRatio = d3.select('#nonGrad')
+        .text(nonGraduateRatio)
+
+        selfRatio = '('+((selfEmployed/applicantNum)*100).toFixed(2)+'%)'
+        nonSelfRatio = '('+(((applicantNum-selfEmployed)/applicantNum)*100).toFixed(2)+'%)'
+
+        let self = d3.select('#self')
+        .text(selfRatio)
+        let nonSelf = d3.select('#nonSelf')
+        .text(nonSelfRatio)
+
+        credRatio = '('+((credHist/applicantNum)*100).toFixed(2)+'%)'
+        nonCredRatio = '('+(((applicantNum-credHist)/applicantNum)*100).toFixed(2)+'%)'
+
+        let cred = d3.select('#cred')
+        .text(credRatio)
+        let nonCred = d3.select('#nonCred')
+        .text(nonCredRatio)
+
+
+        let lowInc =0;
+        let medInc =0;
+        let highInc=0;
+
+        for(let i=0;i<applicantNum;i++){
+            if( parseFloat(data[i]["Income"].split('%')[0])<33){
+                lowInc++
+            }
+            else if(parseFloat(data[i]["Income"].split('%')[0])>66){
+                highInc++
+            }else{
+                medInc++
+            }
+        }
+        lowInc = '('+((lowInc/applicantNum)*100).toFixed(2)+'%)'
+        medInc = '('+((medInc/applicantNum)*100).toFixed(2)+'%)'
+        highInc = '('+((highInc/applicantNum)*100).toFixed(2)+'%)'
+
+        let lowerIncome= d3.select('#lowInc')
+        .text(lowInc)
+        let mediumIncome= d3.select('#medInc')
+        .text(medInc)
+        let highIncome= d3.select('#highInc')
+        .text(highInc)
+
+        let lowLoan =0;
+        let medLoan =0;
+        let highLoan =0;
+
+        for(let i=0;i<applicantNum;i++){
+            if( parseFloat(data[i]["Loan Amount"].split('%')[0])<33){
+                lowLoan++
+            }
+            else if(parseFloat(data[i]["Loan Amount"].split('%')[0])>66){
+                highLoan++
+            }else{
+                medLoan++
+            }
+        }
+        lowLoan = '('+((lowLoan/applicantNum)*100).toFixed(2)+'%)'
+        medLoan = '('+((medLoan/applicantNum)*100).toFixed(2)+'%)'
+        highLoan = '('+((highLoan/applicantNum)*100).toFixed(2)+'%)'
+
+        let lowerLoan= d3.select('#lowLoan')
+        .text(lowLoan)
+        let mediumLoan= d3.select('#medLoan')
+        .text(medLoan)
+        let higherLoan= d3.select('#highLoan')
+        .text(highLoan)
+
+
+        let shortDur =0;
+        let medDur =0;
+        let longDur =0;
+
+        for(let i=0;i<applicantNum;i++){
+            if( parseFloat(data[i]["Loan Duration"].split('%')[0])<33){
+                shortDur++
+            }
+            else if(parseFloat(data[i]["Loan Duration"].split('%')[0])>66){
+                longDur++
+            }else{
+                medDur++
+            }
+        }
+        shortDur = '('+((shortDur/applicantNum)*100).toFixed(2)+'%)'
+        medDur = '('+((medDur/applicantNum)*100).toFixed(2)+'%)'
+        longDur = '('+((longDur/applicantNum)*100).toFixed(2)+'%)'
+
+        let shorterDur= d3.select('#shortDur')
+        .text(shortDur)
+        let mediumDuration= d3.select('#medDur')
+        .text(medDur)
+        let longerDur= d3.select('#longDur')
+        .text(longDur)
+
+
+     
         //Tip one 
 
         let fade1 = () =>{
@@ -581,6 +813,7 @@
         .attr('height', 36)
         .attr('fill', '#07C4FF')
         .attr('rx',4)
+        .style('cursor','pointer')
         .on("click", hide1);
 
         let text1 = sVg.append("text")
@@ -591,12 +824,14 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next Tip')
+        .style('cursor','pointer')
         .on("click", hide1);
 
         let bottom1 = (avgScore-12.9)*7.51+46;
         bottom1 += 'px'
         let tri1 = d3.select('.arrow-right')
         .style('bottom',bottom1)
+        .style('cursor','pointer')
         .on("click", hide1);
 
         let bottom2 = (avgScore-12.9)*7.51 + 100;
@@ -622,6 +857,7 @@
         .attr('stroke','#07C4FF')
         .attr('stroke-width',2)
         .attr('rx',4)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide2);
 
@@ -633,6 +869,7 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next Tip')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide2);
 
@@ -640,6 +877,7 @@
         bottom3 += 'px'
         let tri2 = d3.select('.arrow-right2')
         .style('bottom',bottom3)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide2);
 
@@ -653,6 +891,7 @@
         .attr('stroke','black')
         .attr('stroke-width',2)
         .attr('rx',4)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide1);
 
@@ -664,12 +903,14 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Last Tip')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide1);
 
         let bottom4 = (avgScore-44.8)*7.51+46;
         bottom4 += 'px'
         let tri3 = d3.select('.arrow-right3')
+        .style('cursor','pointer')
         .style('bottom',bottom4)
         .classed('invisible', true)
         .on("click", hide1);
@@ -735,7 +976,11 @@
         .attr('stroke','#15DD7D;')
         .attr('stroke-width',2)
         .attr('rx',4)
-        .classed('invisible', true);
+        .style('cursor','pointer')
+        .classed('invisible', true)  
+        .on('click', ()=>{
+            showGroup()
+        });
 
        let text4 = sVg.append("text")
         .attr("x",x(88.3))
@@ -745,6 +990,7 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next View')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on('click', ()=>{
             showGroup()
@@ -753,8 +999,12 @@
         let bottom6 = (avgScore-44.8)*7.51+295;
         bottom6 += 'px'
         let tri4 = d3.select('.arrow-right4')
+        .style('cursor','pointer')
         .style('bottom',bottom6)
-        .classed('invisible', true);
+        .classed('invisible', true)  
+        .on('click', ()=>{
+            showGroup()
+        });
         
 
         let btn5 = sVg.append('rect')
@@ -766,6 +1016,7 @@
         .attr('stroke','black')
         .attr('stroke-width',2)
         .attr('rx',4)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide2);
 
@@ -777,6 +1028,7 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Last Tip')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide2);
 
@@ -784,6 +1036,7 @@
         bottom7 += 'px'
         let tri5 = d3.select('.arrow-right5')
         .style('bottom',bottom7)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide2);
 
@@ -906,6 +1159,7 @@
         .attr('height', 36)
         .attr('fill', '#07C4FF')
         .attr('rx',4)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide3);
 
@@ -917,6 +1171,7 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next Tip')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide3);
 
@@ -924,6 +1179,7 @@
         bottom30 += 'px'
         let tri10 = d3.select('.arrow-right6')
         .style('bottom',bottom30)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide3);
 
@@ -948,6 +1204,7 @@
         .attr('fill', 'white')
         .attr('stroke','black')
         .attr('stroke-width',2)
+        .style('cursor','pointer')
         .attr('rx',4)
         .classed('invisible', true)
         .on("click", hide3);
@@ -959,6 +1216,7 @@
         .attr('font-size', 14)
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
+        .style('cursor','pointer')
         .text('Last Tip')
         .classed('invisible', true)
         .on("click", hide3);
@@ -972,11 +1230,12 @@
         .attr('stroke','#15DD7D')
         .attr('stroke-width',2)
         .attr('rx',4)
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on('click', ()=>{
             hideGroupTips()
             showCompare()
-        });;
+        });
 
         let text12 = sVg.append("text")
         .attr("x",x(88))
@@ -986,6 +1245,7 @@
         .attr('font-family', 'Roboto')
         .attr('font-weight','bold')
         .text('Next View')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on('click', ()=>{
             hideGroupTips()
@@ -993,6 +1253,7 @@
         });
 
         let tri11 = d3.select('.arrow-right7')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on('click', ()=>{
             hideGroupTips()
@@ -1001,11 +1262,26 @@
        
 
         let tri12 = d3.select('.arrow-right8')
+        .style('cursor','pointer')
         .classed('invisible', true)
         .on("click", hide3);
 
         let info5 = d3.select('#info5')
         .classed('invisible', true);
+
+        //Tip 3 
+        let info6 = d3.select('#info6')
+        .classed('invisible', true);
+        //
+
+        //Tip 4
+        let info7 = d3.select('#info7')
+        .classed('invisible', true);
+
+        let info8 = d3.select('#info8')
+        .classed('invisible', true);
+
+  
         
 
         let xIncrement = 80/arr.length;
@@ -1025,13 +1301,27 @@
         let title4 = [];
         let fTitle4 = [];
         let description = [];
+        let description2 =[];
+        let description3 =[];
+        let description4 =[];
+
+        let fDescription = [];
+        let fDescription2 =[];
+        let fDescription3 =[];
+        let fDescription4 =[];
+        let fDescription5 =[];
 
         let divider = document.getElementsByClassName('divider')[0]
         let compTitles = document.getElementsByClassName('gen')
 
+        let compAni = false;
+
         showCompare=()=>{
            
             xIncrement = 45/arr.length;
+
+            compAni = true;
+            setTimeout(()=>{compAni=false},2000)
 
             for(let i=0; i<arr.length; i++){
                 if(i==0){
@@ -1088,15 +1378,15 @@
                 greyRect[i] = sVg.append('rect')
                     .attr('x', x(xPos[i]-10.3))
                     .attr('y', y(averages[i]+17.5))
-                    .attr('width', 80)
-                    .attr('height', 80)
+                    .attr('width', 68)
+                    .attr('height', 75)
                     .attr('fill', '#E5E5E5')
                     .style("opacity", 0)
                     .attr('rx', 5)
                     .style('display', 'none');
 
                 title3[i]= sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+15))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1108,7 +1398,7 @@
                     .style('display', 'none');
 
                 title4[i]= sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+10))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1120,7 +1410,7 @@
                     .style('display', 'none');
 
                 let title5 = sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+13.5))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1132,7 +1422,7 @@
                     .style('display', 'none');
 
                 let title6 = sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+8.5))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1144,7 +1434,7 @@
                     .style('display', 'none');
 
                 let title7 = sVg.append("text")
-                    .attr("x",x(xPos[i]+2))
+                    .attr("x",x(xPos[i]+1))
                     .attr("y",y(averages[i]+16))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1155,18 +1445,48 @@
                     .style("opacity", 0)
                     .style('display', 'none');
                 
-                /*description[i]= sVg.append("text")
-                    .attr("x",x(xPos[i]+7))
+                description[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
+                    .attr("y",y(averages[i]+14))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(profileArr[i][0])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                description2[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
+                    .attr("y",y(averages[i]+12))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(profileArr[i][1])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                   
+                description3[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
+                    .attr("y",y(averages[i]+10))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(profileArr[i][2])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                description4[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
                     .attr("y",y(averages[i]+8))
                     .attr("fill", 'black')
-                    .attr('font-size', 13)
+                    .attr('font-size', 12)
                     .attr('font-family', 'Roboto')
-                    .attr('font-weight','bold')
-                    .html(profile[i])
-                    .attr('text-anchor', 'middle')
-                    .style("opacity", 1);*/
-                   
+                    .html(profileArr[i][3])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
                 let compMouseOver = () =>{
+                    if(view===3){
                     rect[i]
                     .transition(2000)
                     .style("opacity", 1)
@@ -1202,7 +1522,23 @@
                     title7
                     .transition(2000)
                     .style("opacity", 1)
-                    .style('display', 'block');
+                    .style('display', 'block')
+                    description[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description2[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description3[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description4[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
 
                     flippedRect[i]
                     .transition(2000)
@@ -1240,9 +1576,31 @@
                     .transition(2000)
                     .style("opacity", 1)
                     .style('display', 'block')
+                    fDescription[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fDescription2[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fDescription3[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fDescription4[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    fDescription5[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    }
                 }
                 
                 let compMouseOut =()=>{
+                    if(view===3){
                     rect[i]
                     .transition(2000)
                     .style("opacity", 0)
@@ -1278,7 +1636,23 @@
                     title7
                     .transition(2000)
                     .style("opacity", 0)
-                    .style('display', 'none');
+                    .style('display', 'none')
+                    description[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    description2[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    description3[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    description4[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
 
                     flippedRect[i]
                     .transition(2000)
@@ -1316,6 +1690,27 @@
                     .transition(2000)
                     .style("opacity", 0)
                     .style('display', 'none')
+                    fDescription[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fDescription2[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fDescription3[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fDescription4[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    fDescription5[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    }
                 }
                 circles[i]
                 .on('mouseover', ()=>{
@@ -1333,7 +1728,7 @@
                     .attr('x', x(xPos2[i]-11.3))
                     .attr('y', y(flippedAverages[i]+25))
                     .attr('width', 239)
-                    .attr('height', 150)
+                    .attr('height', 155)
                     .attr('fill', 'white')
                     .style("opacity", 0)
                     .style('display', 'none');
@@ -1365,16 +1760,16 @@
                 greyRect2[i] = sVg.append('rect')
                     .attr('x', x(xPos2[i]-10.3))
                     .attr('y', y(flippedAverages[i]+17.5))
-                    .attr('width', 80)
-                    .attr('height', 80)
+                    .attr('width', 68)
+                    .attr('height', 75)
                     .attr('fill', '#E5E5E5')
                     .style("opacity", 0)
                     .attr('rx', 5)
                     .style('display', 'none');
 
                 fTitle3[i]= sVg.append("text")
-                    .attr("x",x(xPos2[i]-6.5))
-                    .attr("y",y(flippedAverages[i]+15))
+                    .attr("x",x(xPos2[i]-7))
+                    .attr("y",y(flippedAverages[i]+15.5))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
                     .attr('font-family', 'Roboto')
@@ -1385,8 +1780,8 @@
                     .style('display', 'none');
 
                 fTitle4[i]= sVg.append("text")
-                    .attr("x",x(xPos2[i]-6.5))
-                    .attr("y",y(flippedAverages[i]+10))
+                    .attr("x",x(xPos2[i]-7))
+                    .attr("y",y(flippedAverages[i]+10.5))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
                     .attr('font-family', 'Roboto')
@@ -1397,8 +1792,8 @@
                     .style('display', 'none');
 
                 let fTitle5 = sVg.append("text")
-                    .attr("x",x(xPos2[i]-6.5))
-                    .attr("y",y(flippedAverages[i]+13.5))
+                    .attr("x",x(xPos2[i]-7))
+                    .attr("y",y(flippedAverages[i]+14))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
                     .attr('font-family', 'Roboto')
@@ -1409,8 +1804,8 @@
                     .style('display', 'none');
 
                 let fTitle6 = sVg.append("text")
-                    .attr("x",x(xPos2[i]-6.5))
-                    .attr("y",y(flippedAverages[i]+8.5))
+                    .attr("x",x(xPos2[i]-7))
+                    .attr("y",y(flippedAverages[i]+9))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
                     .attr('font-family', 'Roboto')
@@ -1421,7 +1816,7 @@
                     .style('display', 'none');
 
                 let fTitle7 = sVg.append("text")
-                    .attr("x",x(xPos2[i]+2))
+                    .attr("x",x(xPos2[i]+1))
                     .attr("y",y(flippedAverages[i]+16))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1429,6 +1824,56 @@
                     .attr('font-weight','bold')
                     .html('Typical Profile:')
                     .attr('text-anchor', 'middle')
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fDescription[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]-3.1))
+                    .attr("y",y(flippedAverages[i]+14))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(flippedProfileArr[i][0])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fDescription2[i]= sVg.append("text")
+                .attr("x",x(xPos2[i]-3.1))
+                    .attr("y",y(flippedAverages[i]+12))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(flippedProfileArr[i][1])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                   
+                fDescription3[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]-3.1))
+                    .attr("y",y(flippedAverages[i]+10))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(flippedProfileArr[i][2])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fDescription4[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]-3.1))
+                    .attr("y",y(flippedAverages[i]+8))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(flippedProfileArr[i][3])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                fDescription5[i]= sVg.append("text")
+                    .attr("x",x(xPos2[i]-3.1))
+                    .attr("y",y(flippedAverages[i]+6))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(flippedProfileArr[i][4])
                     .style("opacity", 0)
                     .style('display', 'none');
 
@@ -1451,8 +1896,18 @@
 
             hideGroupTips();
             hideTotalTips();
+            info6.classed('fade-in', true);
+            info6.classed('invisible', false);    
+            setTimeout(()=>{
+                info6.classed('hide-1', false);
+                info6.classed('fade-in', false);
+            },950)
+            info7.classed('invisible', true);
+            info8.classed('invisible', true);
+            legend.classed('invisible', false);
             compare.classed('black', true);
             cShape.classed('blackbg', true);
+            
 
             if(view ===1){
                 groups.classed('black', true);
@@ -1469,8 +1924,12 @@
         //Function to show grouped view
         showGroup=()=>{
           
-
+            if(singAni===false){
             hideTotalTips();
+            info6.classed('invisible', true);
+            info7.classed('invisible', true);
+            info8.classed('invisible', true);
+            legend.classed('invisible', true)
             compare.classed('black', false);
             cShape.classed('blackbg', false);
 
@@ -1539,15 +1998,15 @@
                 greyRect[i] = sVg.append('rect')
                     .attr('x', x(xPos[i]-10.3))
                     .attr('y', y(averages[i]+17.5))
-                    .attr('width', 80)
-                    .attr('height', 80)
+                    .attr('width', 68)
+                    .attr('height', 75)
                     .attr('fill', '#E5E5E5')
                     .style("opacity", 0)
                     .attr('rx', 5)
                     .style('display', 'none');
 
                 title3[i]= sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+15))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1559,7 +2018,7 @@
                     .style('display', 'none');
 
                 title4[i]= sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+10))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1571,7 +2030,7 @@
                     .style('display', 'none');
 
                 let title5 = sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+13.5))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1583,7 +2042,7 @@
                     .style('display', 'none');
 
                 let title6 = sVg.append("text")
-                    .attr("x",x(xPos[i]-6.5))
+                    .attr("x",x(xPos[i]-7.1))
                     .attr("y",y(averages[i]+8.5))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1595,7 +2054,7 @@
                     .style('display', 'none');
 
                 let title7 = sVg.append("text")
-                    .attr("x",x(xPos[i]+2))
+                    .attr("x",x(xPos[i]+1))
                     .attr("y",y(averages[i]+16))
                     .attr("fill", 'black')
                     .attr('font-size', 13)
@@ -1605,21 +2064,50 @@
                     .attr('text-anchor', 'middle')
                     .style("opacity", 0)
                     .style('display', 'none');
-                
-               /* description[i]= sVg.append("text")
-                    .attr("x",x(xPos[i]+7))
+
+                description[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
+                    .attr("y",y(averages[i]+14))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(profileArr[i][0])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                description2[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
+                    .attr("y",y(averages[i]+12))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(profileArr[i][1])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+                   
+                description3[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
+                    .attr("y",y(averages[i]+10))
+                    .attr("fill", 'black')
+                    .attr('font-size', 12)
+                    .attr('font-family', 'Roboto')
+                    .html(profileArr[i][2])
+                    .style("opacity", 0)
+                    .style('display', 'none');
+
+                description4[i]= sVg.append("text")
+                    .attr("x",x(xPos[i]-3.2))
                     .attr("y",y(averages[i]+8))
                     .attr("fill", 'black')
-                    .attr('font-size', 13)
+                    .attr('font-size', 12)
                     .attr('font-family', 'Roboto')
-                    .attr('font-weight','bold')
-                    .html(profile[i])
-                    .attr('text-anchor', 'middle')
-                    .style("opacity", 1);*/
-                   
+                    .html(profileArr[i][3])
+                    .style("opacity", 0)
+                    .style('display', 'none');
                 
                 circles[i]
                 .on('mouseover', ()=>{
+                    if(view===2){
                     rect[i]
                     .transition(2000)
                     .style("opacity", 1)
@@ -1653,11 +2141,29 @@
                     .style("opacity", 1)
                     .style('display', 'block')
                     title7
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description2[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description3[i]
+                    .transition(2000)
+                    .style("opacity", 1)
+                    .style('display', 'block')
+                    description4[i]
                     .transition(2000)
                     .style("opacity", 1)
                     .style('display', 'block');
+                    }
                 })
                 .on('mouseout', ()=>{
+                    if(view===2){
                     rect[i]
                     .transition(2000)
                     .style("opacity", 0)
@@ -1694,6 +2200,23 @@
                     .transition(2000)
                     .style("opacity", 0)
                     .style('display', 'none');
+                    description[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    description2[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    description3[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    description4[i]
+                    .transition(2000)
+                    .style("opacity", 0)
+                    .style('display', 'none')
+                    }
                 })
                 .transition()
                 .duration(2000)
@@ -1705,6 +2228,7 @@
                 .attr("cx", x(xPos[i])).attr("cy", y(averages[i])).attr("r", diameters[i]).style("fill", hex[i]).style('cursor','pointer');
 
                 view = 2;
+            }
             };
 
                 
@@ -1720,28 +2244,9 @@
                 text10.classed('invisible',false);
                 tri10.classed('invisible', false);
             },500)
-            //rect10.classed('invisible',false);
-            //btn10.classed('invisible',false);
-            //text10.classed('invisible',false);
-            //tri10.classed('invisible', false);
-            //info4.classed('invisible',false);},500)
-            
-            /*
-            circle1
-            .on('mouseover', mouseOver2)
-            .on('mouseout', mouseOut2)
-            .transition()
-            .duration(2000)
-            .attr("cx", x(60)).attr("cy", y(purpleAvg)).attr("r", purpleLength).style("fill", "#7820CF")
-
-
-            pRect.classed('display',false)
-            pkRect.classed('display',false)
-            oRect.classed('display',false)
-            bRect.classed('display',false)
-            */
         }
         showTotal=()=>{
+            if(singAni===false){
             view = 1;
 
             compare.classed('black', false);
@@ -1793,51 +2298,127 @@
             
             //Hide group tip1 - group view
             hideGroupTips()
+            info6.classed('invisible', true);
+            info7.classed('invisible', true);
+            info8.classed('invisible', true);
+            legend.classed('invisible', true);
+            }
         }
 
         let animatedShapes = [];
         let k = 0;
         let z = 0;
+        let singAni = false;
+
+        let animate =(i)=>{
+
+                singAni = true;
+                circles[i].style("stroke", 'white').style("stroke-width", 4);
+
+                let color 
+                let flippedColor
+                if(averages[i]<50){
+                    color = 'orangered'
+                }else{
+                    color = 'darkseagreen'
+                }
+                if(flippedAverages[i]<50){
+                    flippedColor = 'orangered'
+                }else{
+                    flippedColor = 'darkseagreen'
+                }
+                for(let j=0; j<Math.floor(diameters[i]/4); j++){
+                        let rad
+                        if(genderRatios[i]===1){
+                            rad = 0;
+                        }else if(genderRatios[i]===0){
+                            rad = 20;
+                        }else{
+                            if(Math.random()+genderRatios[i]>1){
+                                rad=0;
+                            }else{
+                                rad=20;
+                            }
+                        }
+                        animatedShapes[k] = sVg.append("rect")
+                        .attr('rx', rad).attr('ry',rad).attr("x", x(xPos[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("y", y(averages[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("width", '0px').attr("height", '0px').style("fill", color).style('opacity',1);
+                        k++
+                }   
+            
+                let len = flippedIndex[i].length;
+
+                for(let m=0; m<Math.floor(diameters[i]/4); m++){
+                        let flippedRad
+                        if(flippedGenderRatios[i]===1){
+                            fRad = 0;
+                        }else if(flippedGenderRatios[i]===0){
+                            fRad = 20;
+                        }else{
+                            if(Math.random()+flippedGenderRatios[i]>1){
+                                fRad=0;
+                            }else{
+                                fRad=20;
+                            }
+                        }
+
+                        let ind = flippedIndex[i][(Math.floor(Math.random()*len))]
+
+                        animatedShapes[z] 
+                        .transition()
+                        .duration((Math.random()*900+200))
+                        .attr("width", '16px').attr("height", '16px')
+                        .transition()
+                        .duration((Math.random()*2400+1400))
+                        .attr("x", x(xPos2[ind])-(0.75*flippedDiameters[ind])+(Math.random()*1.5*flippedDiameters[ind])).attr("y", y(flippedAverages[ind])-(0.75*flippedDiameters[ind])+(Math.random()*1.5*flippedDiameters[ind])).style("fill", flippedColor).attr('rx', fRad).attr('ry',fRad)
+                        .transition()
+                        .duration((Math.random()*900+200))
+                        .attr("width", '0px').attr("height", '0px')
+                        z++
+                }  
+                setTimeout(()=>{
+                    circles[i]
+                    .transition()
+                    .duration(2000)
+                    .style("stroke-width", 0);
+                    singAni = false;
+                },3000)
+        }
+
+        let nextSingle =()=>{
+            info7.classed('invisible', true);
+
+            info8.classed('invisible', false);
+            info8.classed('fade-in', true);
+                setTimeout(()=>{
+                    info8.classed('hide-1', false);
+                    info8.classed('fade-in', false); 
+                },950)
+    
+        }
 
         let showSingle =()=>{
-            if(view === 3){
-            
+            if(view === 3 && compAni ===false){  
+                info7.classed('invisible', false);
+                info7.classed('fade-in', true);
+                setTimeout(()=>{
+                    info7.classed('hide-1', false);
+                    info7.classed('fade-in', false); 
+                },950)
+                animate(0)
             for(let i=0; i<arr.length; i++){
-
                 flippedCircles[i]
                 .transition()
                 .duration(1000)
                 .style('opacity',1);
-
-            for(let j=0; j<Math.floor(diameters[i]/6); j++){
-                    animatedShapes[k] = sVg.append("rect")
-                    .attr('rx', 0).attr('ry',0).attr("x", x(xPos[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("y", y(averages[i])-(0.75*diameters[i])+(Math.random()*1.5*diameters[i])).attr("width", '0px').attr("height", '0px').style("fill", 'darkseagreen').style('opacity',1);
-                    k++
-            }   
-            console.log(flippedIndex);
-            let len = flippedIndex[i].length;
-
-            for(let m=0; m<Math.floor(diameters[i]/6); m++){
-
-                    let ind = flippedIndex[i][(Math.floor(Math.random()*len))]
-
-                    animatedShapes[z] 
-                    .transition()
-                    .duration((Math.random()*900+200))
-                    .attr("width", '16px').attr("height", '16px')
-                    .transition()
-                    .duration((Math.random()*2000+1200))
-                    .attr("x", x(xPos2[ind])-(0.75*flippedDiameters[ind])+(Math.random()*1.5*flippedDiameters[ind])).attr("y", y(flippedAverages[ind])-(0.75*flippedDiameters[ind])+(Math.random()*1.5*flippedDiameters[ind])).style("fill", 'orangered').attr('rx', 20).attr('ry',20)
-                    .transition()
-                    .duration((Math.random()*900+200))
-                    .attr("width", '0px').attr("height", '0px')
-                    z++
-            }  
-               
+                circles[i].on('click',()=>{
+                    animate(i)
+                })
             }
             single.classed('black', true);
             singleB.classed('blackbg', true);
             singleW.style('border-color', 'black')
+            info6.classed('invisible', true);
+            legend.classed('invisible', false);
             }
         }
             
@@ -1859,7 +2440,48 @@
         single.on('click', showSingle);
         let singleW = d3.select('.single-w');
         let singleB = d3.select('.single-b');
-    
+
+        let legend = d3.select('.leg')
+        legend.classed('invisible', true)
+
+        //Tip 3
+        let tip3 = d3.select('.tip3')
+        .on('click', showSingle)
+        let tri21 = d3.select('.arrow-right9')
+        .on('click', showSingle)
+        //
+
+        //Tip 4
+        let tip4 = d3.select('.tip4')
+        .on('click', nextSingle)
+        let tri31 = d3.select('.arrow-right10')
+        .on('click', nextSingle)
+
+        let tip5 = d3.select('.tip5')
+        .on('click',()=>{
+            info8.classed('invisible', true)
+        })
+        //View Features
+
+        let table = d3.select('.table');
+        let body = d3.select('body');
+
+        let features = d3.select('#features')
+        .on('click',()=>{
+            table.classed('fade-in', true);
+            table.classed('invisible', false);
+            setTimeout(()=>{
+                table.classed('fade-in', false);
+            },950)
+        })
+
+        let close = d3.select('.close')
+        .on('click',()=>{
+            table.classed('invisible', true);
+        })
+
+       
+      
         });
 
     
@@ -1875,6 +2497,7 @@
           .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
+        
           // translate this svg element to leave some margin.
           .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
